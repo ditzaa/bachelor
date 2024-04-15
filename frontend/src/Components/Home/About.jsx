@@ -1,6 +1,5 @@
 import AboutBackground from "../../assets/about-background.png";
 import AboutBackgroundImage from "../../assets/about-background-image.png";
-import { BsFillPlayCircleFill } from "react-icons/bs";
 
 const About = () => {
   return (
@@ -24,9 +23,6 @@ const About = () => {
         </p>
         <div className="about-buttons-container">
           <button className="secondary-button">Learn more</button>
-          {/* <button className="watch-video-button">
-            <BsFillPlayCircleFill /> Watch Video
-          </button> */}
         </div>
       </div>
     </div>

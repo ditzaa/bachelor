@@ -1,21 +1,21 @@
-import PickMeals from "../../assets/lupa-imagine.png";
-import ChooseMeals from "../../assets/dashboard.png";
-import DeliveryMeals from "../../assets/save-instagram.png";
+import SearchImg from "../../assets/lupa-imagine.png";
+import AnalyseImg from "../../assets/dashboard.png";
+import SaveImg from "../../assets/save-instagram.png";
 
 const Work = () => {
   const workInfoData = [
     {
-      image: PickMeals,
+      image: SearchImg,
       title: "Discover Talents",
       text: "Utilize the search feature to find potential players based on your preferred criteria.",
     },
     {
-      image: ChooseMeals,
+      image: AnalyseImg,
       title: "Analyze Performances",
       text: "Evaluate players' skills and performances using our analysis tools. ",
     },
     {
-      image: DeliveryMeals,
+      image: SaveImg,
       title: "Save and share",
       text: "Save your favorite players to a personal list and share the results with your team.",
     },
@@ -24,7 +24,6 @@ const Work = () => {
   return (
     <div className="work-section-wrapper">
       <div className="work-section-top">
-        {/* <p className="primary-subheading">Work</p> */}
         <h1 className="primary-heading">How It Works</h1>
         <p className="primary-text">
           Our platform streamlines the scouting process, making it easier to
