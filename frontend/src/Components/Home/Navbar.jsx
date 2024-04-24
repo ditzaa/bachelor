@@ -15,6 +15,8 @@ import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
 import { useState } from "react";
 
+import { Link } from "react-router-dom";
+
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const menuOptions = [
@@ -37,7 +39,9 @@ const Navbar = () => {
         <a href="">Home</a>
         <a href="">About</a>
         <a href="">Contact</a>
-        <button className="primary-button">Login</button>
+        <Link to="/login">
+          <button className="primary-button">Login</button>
+        </Link>
       </div>
       <div className="navbar-menu-container">
         <HiOutlineBars3 onClick={() => setOpenMenu(true)}></HiOutlineBars3>

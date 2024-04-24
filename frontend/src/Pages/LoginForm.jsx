@@ -1,4 +1,4 @@
-import "./LoginForm.css";
+import "./Login.css";
 import { FaUser, FaLock } from "react-icons/fa";
 
 const LoginForm = () => {

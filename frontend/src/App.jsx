@@ -1,15 +1,24 @@
-import Home from "./Components/Home/Home";
-import About from "./Components/Home/About";
 import "./Pages/Home.css";
-import Work from "./Components/Home/Work";
-import Footer from "./Components/Home/Footer";
+import LoginForm from "./Pages/LoginForm";
+import {
+  Route,
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+} from "react-router-dom";
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+      <Route index element={<HomePg />}></Route>
+      <Route path="/login" element={<LoginForm />}></Route>
+    </>
+  )
+);
+
 import HomePg from "./Pages/HomePg";
 function App() {
-  return (
-    <>
-      <HomePg></HomePg>
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
