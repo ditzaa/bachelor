@@ -1,17 +1,13 @@
-import Home from "./Pages/Home";
+import Home from "./Components/Home/Home";
 import About from "./Components/Home/About";
 import "./Pages/Home.css";
 import Work from "./Components/Home/Work";
 import Footer from "./Components/Home/Footer";
+import HomePg from "./Pages/HomePg";
 function App() {
   return (
     <>
-      <div className="Home">
-        <Home></Home>
-        <About></About>
-        <Work></Work>
-        <Footer></Footer>
-      </div>
+      <HomePg></HomePg>
     </>
   );
 }
