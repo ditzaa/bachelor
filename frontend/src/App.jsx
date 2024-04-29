@@ -1,5 +1,6 @@
 import "./Pages/Home.css";
 import LoginForm from "./Pages/LoginForm";
+import Register from "./Pages/Register";
 import {
   Route,
   createBrowserRouter,
@@ -12,6 +13,7 @@ const router = createBrowserRouter(
     <>
       <Route index element={<HomePg />}></Route>
       <Route path="/login" element={<LoginForm />}></Route>
+      <Route path="/register" element={<Register />}></Route>
     </>
   )
 );
