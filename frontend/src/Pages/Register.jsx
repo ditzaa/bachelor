@@ -5,6 +5,7 @@ import { FaUser, FaLock } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import ReactFlagsSelect from "react-flags-select";
+import Dropdown from "../Components/LoginForm/Dropdown";
 
 const Register = () => {
   const [selected, isSelected] = useState("");
@@ -41,10 +42,6 @@ const Register = () => {
               <input type="password" placeholder="Password" required />
               <FaLock className="icon" />
             </div>
-            <div className="input-box">
-              <input type="text" placeholder="fdsfds" required />
-              <FaUser className="icon" />
-            </div>
 
             <div>
               <ReactFlagsSelect
@@ -54,14 +51,18 @@ const Register = () => {
               />
             </div>
 
+            <div className="input-box">
+              <Dropdown></Dropdown>
+            </div>
+
+            <div className="input-box">
+              <input type="text" placeholder="Club / Company" required />
+              <FaUser className="icon" />
+            </div>
+
             <button className="button-login" type="submit">
               Create account
             </button>
-            <div className="register-link">
-              <p>
-                {"Don't have an account?"} <Link to="/register">Register</Link>
-              </p>
-            </div>
           </form>
         </div>
       </div>
