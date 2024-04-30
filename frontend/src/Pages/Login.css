@@ -145,9 +145,12 @@
 @media screen and (max-width: 600px) {
   .wrapper {
     margin: auto;
-    height: 400px;
-    height: 90vh;
-    /* width: 80vw; */
+    height: 450px;
+    margin: 30px 20px;
+  }
+
+  .navbar {
+    margin-bottom: 20px;
   }
 
   .wrapper h1 {
@@ -171,10 +174,6 @@
 
   .remember-forgot label {
     margin-bottom: 5px;
-  }
-
-  .navbar {
-    margin-bottom: 20px;
   }
 }
 
