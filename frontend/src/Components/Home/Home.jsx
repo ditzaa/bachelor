@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import BannerBackground from "../../assets/home-banner-background.png";
 import BannerImage from "../../assets/home-banner-image.png";
 import { FiArrowRight } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -20,9 +21,11 @@ const Home = () => {
             Get ahead of the game with our comprehensive scouting reports and
             insights.
           </p>
-          <button className="secondary-button">
-            Scout Now <FiArrowRight />{" "}
-          </button>
+          <Link to="/register" className="link-class">
+            <button className="secondary-button">
+              Scout Now <FiArrowRight />{" "}
+            </button>
+          </Link>
         </div>
         <div className="home-image-section">
           <img src={BannerImage} alt="" />

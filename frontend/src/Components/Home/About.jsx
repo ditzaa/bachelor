@@ -1,5 +1,6 @@
 import AboutBackground from "../../assets/about-background.png";
 import AboutBackgroundImage from "../../assets/about-background-image.png";
+import { Link } from "react-router-dom";
 
 const About = () => {
   return (

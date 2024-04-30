@@ -315,6 +315,10 @@ nav {
   font-weight: 600;
 }
 
+.link-class {
+  text-decoration: none;
+}
+
 @media (max-width: 1000px) {
   .navbar-links-container a {
     margin-right: 1rem;
