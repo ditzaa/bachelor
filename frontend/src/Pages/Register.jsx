@@ -1,7 +1,8 @@
 import "./Register.css";
 import Navbar from "../Components/Home/Navbar";
 import BannerBackground from "../assets/home-banner-background.png";
-import { FaUser, FaLock } from "react-icons/fa";
+import { FaUser, FaLock, FaRegBuilding } from "react-icons/fa";
+import { AiOutlineTeam } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import ReactFlagsSelect from "react-flags-select";
@@ -23,9 +24,13 @@ const Register = () => {
       </div>
 
       <div className="register-container">
-        <div className="wrapper">
+        <div className="wrapper-register">
           <h1>Register</h1>
           <form action="">
+            <div className="input-box">
+              <input type="text" placeholder="First Name" required />
+              <FaUser className="icon" />
+            </div>
             <div className="input-box">
               <input type="text" placeholder="First Name" required />
               <FaUser className="icon" />
@@ -57,7 +62,7 @@ const Register = () => {
 
             <div className="input-box">
               <input type="text" placeholder="Club / Company" required />
-              <FaUser className="icon" />
+              <AiOutlineTeam className="icon" />
             </div>
 
             <button className="button-login" type="submit">

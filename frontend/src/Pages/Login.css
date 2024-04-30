@@ -14,7 +14,7 @@
   justify-content: center;
   align-items: center;
   min-height: 90vh;
-  margin-top: -100px;
+  margin-top: -130px;
 }
 
 .home-banner-container {
@@ -144,12 +144,10 @@
 
 @media screen and (max-width: 600px) {
   .wrapper {
-    width: 90vw;
-
-    padding: 0px;
     margin: auto;
-    padding-bottom: 0px;
-    height: 30vh;
+    height: 400px;
+    height: 90vh;
+    /* width: 80vw; */
   }
 
   .wrapper h1 {
@@ -173,6 +171,10 @@
 
   .remember-forgot label {
     margin-bottom: 5px;
+  }
+
+  .navbar {
+    margin-bottom: 20px;
   }
 }
 
