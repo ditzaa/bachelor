@@ -1,7 +1,7 @@
-const Dropdown = () => {
+const Dropdown = ({ value, onChange }) => {
   return (
     <>
-      <select>
+      <select value={value} onChange={onChange}>
         <option value="scouter">Scouter</option>
         <option value="coach">Coach</option>
         <option value="technical-analyst">Technical analyst</option>

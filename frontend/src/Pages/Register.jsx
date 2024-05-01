@@ -8,9 +8,41 @@ import { useState } from "react";
 import ReactFlagsSelect from "react-flags-select";
 import Dropdown from "../Components/LoginForm/Dropdown";
 import { IoIosMail } from "react-icons/io";
+import axios from "axios";
 
 const Register = () => {
   const [selected, isSelected] = useState("");
+
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    username: "",
+    password: "",
+    country: "",
+    role: "",
+    organisation: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:1234/api/user/register", formData)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("Error registering user:", error);
+      });
+  };
 
   return (
     <>
@@ -27,25 +59,60 @@ const Register = () => {
       <div className="register-container">
         <div className="wrapper-register">
           <h1>Register</h1>
-          <form action="">
+          <form action="" onSubmit={handleSubmit}>
             <div className="input-box">
-              <input type="text" placeholder="First Name" required />
+              <input
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                value={formData.firstName}
+                onChange={handleChange}
+                required
+              />
               <FaUser className="icon" />
             </div>
             <div className="input-box">
-              <input type="text" placeholder="Last Name" required />
+              <input
+                type="text"
+                placeholder="Last Name"
+                required
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+              />
               <FaUser className="icon" />
             </div>
             <div className="input-box">
-              <input type="text" placeholder="Email" required />
+              <input
+                type="text"
+                placeholder="Email"
+                required
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+              />
               <IoIosMail className="icon" />
             </div>
             <div className="input-box">
-              <input type="text" placeholder="Username" required />
+              <input
+                type="text"
+                placeholder="Username"
+                required
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+              />
               <FaUser className="icon" />
             </div>
             <div className="input-box">
-              <input type="password" placeholder="Password" required />
+              <input
+                type="password"
+                placeholder="Password"
+                required
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+              />
               <FaLock className="icon" />
             </div>
 
@@ -53,16 +120,31 @@ const Register = () => {
               <ReactFlagsSelect
                 className=" dropdown-country"
                 selected={selected}
-                onSelect={(code) => isSelected(code)}
+                onSelect={(code) => {
+                  isSelected(code);
+                  setFormData({ ...formData, country: code });
+                }}
               />
             </div>
 
             <div className="input-box">
-              <Dropdown></Dropdown>
+              <Dropdown
+                value={formData.role}
+                onChange={(e) =>
+                  setFormData({ ...formData, role: e.target.value })
+                }
+              ></Dropdown>
             </div>
 
             <div className="input-box">
-              <input type="text" placeholder="Club / Company" required />
+              <input
+                type="text"
+                placeholder="Club / Company"
+                required
+                name="organisation"
+                value={formData.organisation}
+                onChange={handleChange}
+              />
               <AiOutlineTeam className="icon" />
             </div>
 
