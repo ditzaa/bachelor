@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 const database = require("../config/db");
-const { all } = require("../routes");
+//const { all } = require("../routes");
 
 module.exports = (database) => {
   const model = database.define("user", {
@@ -12,7 +12,12 @@ module.exports = (database) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    userName: {
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+    },
+    username: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,

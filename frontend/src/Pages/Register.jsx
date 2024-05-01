@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import ReactFlagsSelect from "react-flags-select";
 import Dropdown from "../Components/LoginForm/Dropdown";
+import { IoIosMail } from "react-icons/io";
 
 const Register = () => {
   const [selected, isSelected] = useState("");
@@ -32,12 +33,12 @@ const Register = () => {
               <FaUser className="icon" />
             </div>
             <div className="input-box">
-              <input type="text" placeholder="First Name" required />
+              <input type="text" placeholder="Last Name" required />
               <FaUser className="icon" />
             </div>
             <div className="input-box">
-              <input type="text" placeholder="Last Name" required />
-              <FaUser className="icon" />
+              <input type="text" placeholder="Email" required />
+              <IoIosMail className="icon" />
             </div>
             <div className="input-box">
               <input type="text" placeholder="Username" required />
