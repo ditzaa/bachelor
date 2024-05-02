@@ -3,7 +3,7 @@ import Navbar from "../Components/Home/Navbar";
 import BannerBackground from "../assets/home-banner-background.png";
 import { FaUser, FaLock, FaRegBuilding } from "react-icons/fa";
 import { AiOutlineTeam } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import ReactFlagsSelect from "react-flags-select";
 import Dropdown from "../Components/LoginForm/Dropdown";
@@ -11,6 +11,7 @@ import { IoIosMail } from "react-icons/io";
 import axios from "axios";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [selected, isSelected] = useState("");
 
   const [formData, setFormData] = useState({
@@ -20,7 +21,7 @@ const Register = () => {
     username: "",
     password: "",
     country: "",
-    role: "",
+    role: "scouter",
     organisation: "",
   });
 
@@ -37,6 +38,8 @@ const Register = () => {
     axios
       .post("http://localhost:1234/api/user/register", formData)
       .then((response) => {
+        alert("Account created succesfuly!");
+        navigate("/login");
         console.log(response.data);
       })
       .catch((error) => {
