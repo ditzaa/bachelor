@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 const LoginForm = () => {
   const navigate = useNavigate();
 
+  const [loginStatus, setLoginStatus] = useState("");
+
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
@@ -43,7 +45,9 @@ const LoginForm = () => {
 
   useEffect(() => {
     axios.get("http://localhost:1234/api/user/login").then((response) => {
-      console.log(response);
+      if (response.data.loggedIn == true) {
+        alert(response.data.user.username);
+      }
     });
   }, []);
 
