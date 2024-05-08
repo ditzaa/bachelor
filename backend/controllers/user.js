@@ -1,5 +1,9 @@
+const { RequestPageRounded } = require("@mui/icons-material");
 const { UserDb } = require("../models");
 const bcrypt = require("bcrypt");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
 
 const controller = {
   registerUser: async (req, res) => {
@@ -38,10 +42,13 @@ const controller = {
 
       bcrypt.compare(password, user.password).then((match) => {
         if (!match) {
-          return res.json({ error: "Wrong Username And Password Combination" });
+          return res.json({
+            error: "Wrong Username And Password Combination",
+          });
         }
 
-        res.json("YOU LOGGED IN!!!");
+        //console.log(user);
+        res.status(201).send(user);
       });
     } catch (error) {
       res.status(500).send("Server error!" + error.message);

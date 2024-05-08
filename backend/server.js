@@ -1,16 +1,45 @@
 const express = require("express");
 const database = require("./config/db");
 const cors = require("cors");
-
+const bcrypt = require("bcrypt");
 const router = require("./routes");
+
+const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
+const session = require("express-session");
+
 require("./models");
 
 const app = express();
 const PORT = 1234;
 
+// app.use(
+//   cors({
+//     origin: ["http://localhost:5173/"],
+//     methods: ["GET", "POST"],
+//     credentials: true,
+//   })
+// );
+
 app.use(cors());
 
 app.use(express.json());
+
+app.use(cookieParser());
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(
+  session({
+    key: "userId",
+    secret: "luam_licenta",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      expires: 60 * 60 * 24,
+    },
+  })
+);
 
 app.use("/api", router);
 

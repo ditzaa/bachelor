@@ -22,6 +22,8 @@ const LoginForm = () => {
     }));
   };
 
+  //axios.defaults.withCredentials = true;
+
   const handleLogin = (e) => {
     e.preventDefault();
     axios
