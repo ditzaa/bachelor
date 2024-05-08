@@ -7,6 +7,7 @@ const router = require("./routes");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const session = require("express-session");
+const jwt = require("jsonwebtoken");
 
 require("./models");
 

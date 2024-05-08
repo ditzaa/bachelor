@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const jwt = require("jsonwebtoken");
 
 const controller = {
   registerUser: async (req, res) => {
@@ -47,11 +48,14 @@ const controller = {
           });
         }
 
-        req.session.user = user;
+        const id = user.id;
+        const token = jwt.sign({ id }, "luam_licenta", { expiresIn: 300 });
         console.log("---------SESSION-----\n");
         console.log(req.session.user);
 
-        res.status(201).send(user);
+        req.session.user = user;
+        // res.status(201).send(user);
+        res.status(201).json({ auth: true, token: token, result: user });
       });
     } catch (error) {
       res.status(500).send("Server error!" + error.message);
@@ -66,6 +70,35 @@ const controller = {
         res.send({ loggedIn: false });
       }
       console.log(req.session);
+    } catch {
+      res.status(500).send("Server error!" + error.message);
+    }
+  },
+
+  isUserAuth: async (req, res) => {
+    try {
+      res.send("You are authenticated!");
+    } catch {
+      res.status(500).send("Server error!" + error.message);
+    }
+  },
+
+  verifyJWT: async (req, res, next) => {
+    try {
+      const token = req.headers("x-acces-token");
+      if (!token) {
+        res.send("A token is needed! Give it next time!");
+      } else {
+        jwt.verify(token, "luam_licenta", (err, decoded) => {
+          if (err) {
+            res.json({ auth: false, message: "You failed to authenticate" });
+          } else {
+            req.userId = decoded.id;
+            next();
+          }
+        });
+      }
+      //res.send('You are authenticated!')
     } catch {
       res.status(500).send("Server error!" + error.message);
     }

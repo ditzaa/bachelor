@@ -33,20 +33,18 @@ const LoginForm = () => {
       .then((response) => {
         //navigate("/home");
         console.log(response.data);
+        navigate("/dashboard");
       })
       .catch((error) => {
         console.error("Error logging user: ", error);
       });
-
-    // axios.get("http://localhost:1234/api/user/login").then((response) => {
-    //   console.log(response);
-    // });
   };
 
   useEffect(() => {
     axios.get("http://localhost:1234/api/user/login").then((response) => {
       if (response.data.loggedIn == true) {
-        alert(response.data.user.username);
+        //alert(response.data.user.username);
+        //navigate("/dashboard");
       }
     });
   }, []);
