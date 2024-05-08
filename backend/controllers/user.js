@@ -47,10 +47,26 @@ const controller = {
           });
         }
 
-        //console.log(user);
+        req.session.user = user;
+        console.log("---------SESSION-----\n");
+        console.log(req.session.user);
+
         res.status(201).send(user);
       });
     } catch (error) {
+      res.status(500).send("Server error!" + error.message);
+    }
+  },
+
+  getUser: async (req, res) => {
+    try {
+      if (req.session.user) {
+        res.send({ loggedIn: true, user: req.session.user });
+      } else {
+        res.send({ loggedIn: false });
+      }
+      console.log(req.session);
+    } catch {
       res.status(500).send("Server error!" + error.message);
     }
   },

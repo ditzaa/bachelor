@@ -4,7 +4,7 @@ import BannerBackground from "../assets/home-banner-background.png";
 import { FaUser, FaLock } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const LoginForm = () => {
     }));
   };
 
-  //axios.defaults.withCredentials = true;
+  axios.defaults.withCredentials = true;
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -35,7 +35,17 @@ const LoginForm = () => {
       .catch((error) => {
         console.error("Error logging user: ", error);
       });
+
+    // axios.get("http://localhost:1234/api/user/login").then((response) => {
+    //   console.log(response);
+    // });
   };
+
+  useEffect(() => {
+    axios.get("http://localhost:1234/api/user/login").then((response) => {
+      console.log(response);
+    });
+  }, []);
 
   return (
     <>
