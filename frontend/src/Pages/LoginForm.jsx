@@ -31,9 +31,8 @@ const LoginForm = () => {
     axios
       .post("http://localhost:1234/api/user/login", loginData)
       .then((response) => {
-        //navigate("/home");
         console.log(response.data);
-        navigate("/dashboard");
+        navigate("/dashboard", { replace: true });
       })
       .catch((error) => {
         console.error("Error logging user: ", error);
@@ -43,8 +42,7 @@ const LoginForm = () => {
   useEffect(() => {
     axios.get("http://localhost:1234/api/user/login").then((response) => {
       if (response.data.loggedIn == true) {
-        //alert(response.data.user.username);
-        //navigate("/dashboard");
+        navigate("/dashboard", { replace: true });
       }
     });
   }, []);
