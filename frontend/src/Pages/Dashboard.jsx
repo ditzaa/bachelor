@@ -23,9 +23,13 @@ const Dashboard = () => {
   return (
     <>
       <NavbarDash />
+
       <div className="dashboard-container">
         <h3 className="header-welcome">Welcome, {username}!</h3>
-        <button className="dashboard-button">Search player</button>
+        <Link to="/search/player">
+          <button className="dashboard-button">Search player</button>
+        </Link>
+
         <button className="dashboard-button">Search club</button>
         <button className="dashboard-button">Favorite players list</button>
       </div>

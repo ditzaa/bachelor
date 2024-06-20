@@ -1,0 +1,150 @@
+:root {
+  --text: #040508;
+  --background: #f8fafc;
+  --primary: #4d76bc;
+  --secondary: #9bb3dd;
+  --accent: #6d92d2;
+  --success: #28a745;
+  --warning: #ffc107;
+  --danger: #dc3545;
+}
+
+.player-details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: var(--background);
+  min-height: 100vh;
+}
+
+.player-card,
+.player-details-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px;
+  width: 100%;
+  max-width: 600px;
+  text-align: center; /* Center align text */
+}
+
+.player-card h1 {
+  margin-bottom: 20px;
+}
+
+.player-image {
+  width: 200px;
+  height: auto;
+  margin-bottom: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.player-info {
+  text-align: center; /* Center align text */
+}
+
+.player-info p {
+  margin: 5px 0; /* Add some spacing between the items */
+}
+
+.description {
+  padding: 0 20px;
+}
+
+.favorite-button,
+.videos-button,
+.back-button {
+  padding: 10px 20px;
+  margin: 10px;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.favorite-button:hover,
+.videos-button:hover,
+.back-button:hover {
+  background-color: var(--accent);
+}
+
+.videos-button {
+  background-color: var(--success);
+}
+
+.videos-button:hover {
+  background-color: darken(var(--success), 10%);
+}
+
+.back-button {
+  background-color: var(--text);
+}
+
+.back-button:hover {
+  background-color: lighten(var(--text), 10%);
+}
+
+.no-bullets {
+  list-style: none;
+  padding: 0;
+  text-align: center; /* Center align text */
+}
+
+.statistics-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.statistics-table th,
+.statistics-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center; /* Center align text */
+}
+
+.statistics-table th {
+  background-color: #f2f2f2;
+}
+
+.statistics-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.statistics-table tr:hover {
+  background-color: #ddd;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  max-width: 600px;
+  margin: 20px 0;
+}
+
+@media (max-width: 768px) {
+  .favorite-button,
+  .videos-button,
+  .back-button {
+    width: 100%;
+  }
+
+  .player-card,
+  .player-details-card {
+    width: 90%;
+  }
+
+  .button-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}

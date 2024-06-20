@@ -3,6 +3,7 @@ const database = require("./config/db");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const router = require("./routes");
+const axios = require("axios");
 
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
@@ -35,7 +36,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      expires: 60 * 60 * 24,
+      expires: 60 * 60 * 60,
     },
   })
 );
@@ -49,6 +50,33 @@ app.get("/db-reset", async (req, res) => {
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Reset failed!");
+  }
+});
+
+app.get("/api/stats/:name", async (req, res) => {
+  const playerName = req.params.name;
+  try {
+    const response = await axios.get(
+      `https://transfermarkt-api.fly.dev/players/search/${playerName}`
+    );
+    const playerData = response.data.results[0];
+    res.json(playerData);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    res.status(500).json({ error: "Error fetching data" });
+  }
+});
+
+app.get("/api/player-stats/:transfermarktId", async (req, res) => {
+  const transfermarktId = req.params.transfermarktId;
+  try {
+    const response = await axios.get(
+      `https://transfermarkt-api.fly.dev/players/${transfermarktId}/stats`
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error("Error fetching player stats:", error);
+    res.status(500).json({ error: "Error fetching player stats" });
   }
 });
 
