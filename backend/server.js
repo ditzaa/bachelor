@@ -100,11 +100,60 @@ app.get("/api/club-details/:id", async (req, res) => {
     const response = await axios.get(
       `https://transfermarkt-api.fly.dev/clubs/${clubId}/profile`
     );
-    console.log(response);
+    //console.log(response);
     res.json(response.data);
   } catch (error) {
     console.error("Error fetching club details:", error);
     res.status(500).json({ error: "Error fetching club details" });
+  }
+});
+
+// app.get("/api/club-players/:id", async (req, res) => {
+//   const clubId = req.params.id;
+//   try {
+//     const response = await axios.get(
+//       `https://transfermarkt-api.fly.dev/clubs/${clubId}/players`
+//     );
+//     res.json(response.data);
+//   } catch (error) {
+//     console.error("Error fetching club players:", error);
+//     res.status(500).json({ error: "Error fetching club players" });
+//   }
+// });
+
+// Add this endpoint to your existing backend code
+app.get("/api/club-players/:id", async (req, res) => {
+  const clubId = req.params.id;
+
+  try {
+    // Fetch the list of players for the club
+    const playersResponse = await axios.get(
+      `https://transfermarkt-api.fly.dev/clubs/${clubId}/players`
+    );
+
+    const players = playersResponse.data.players;
+
+    // Fetch each player's profile
+    const playerProfiles = await Promise.all(
+      players.map(async (player) => {
+        const profileResponse = await axios.get(
+          `https://transfermarkt-api.fly.dev/players/${player.id}/profile`
+        );
+
+        const profile = profileResponse.data;
+
+        return {
+          transfermarktId: profile.id,
+          name: profile.name,
+          image: profile.imageURL,
+        };
+      })
+    );
+
+    res.json({ players: playerProfiles });
+  } catch (error) {
+    console.error("Error fetching player profiles:", error);
+    res.status(500).json({ error: "Error fetching player profiles" });
   }
 });
 
