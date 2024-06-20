@@ -30,7 +30,10 @@ const Dashboard = () => {
           <button className="dashboard-button">Search player</button>
         </Link>
 
-        <button className="dashboard-button">Search club</button>
+        <Link to="/search/club">
+          <button className="dashboard-button">Search club</button>{" "}
+        </Link>
+
         <button className="dashboard-button">Favorite players list</button>
       </div>
     </>

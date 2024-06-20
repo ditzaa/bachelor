@@ -21,6 +21,8 @@ const router = createBrowserRouter(
       <Route path="/home" element={<Main />}></Route>
       <Route path="/dashboard" element={<Dashboard />}></Route>
       <Route path="/search/player" element={<SearchPlayer />}></Route>
+      <Route path="/search/club" element={<SearchClubs />}></Route>
+      <Route path="/club-details/:transfermarktId" element={<ClubDetails />} />
       <Route
         path="/player-details/:playerId/:transfermarktId"
         element={<PlayerDetails />}
@@ -31,6 +33,8 @@ const router = createBrowserRouter(
 );
 
 import HomePg from "./Pages/HomePg";
+import SearchClubs from "./Pages/SearchClubs";
+import ClubDetails from "./Pages/ClubDetails";
 function App() {
   return <RouterProvider router={router} />;
 }

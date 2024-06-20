@@ -80,6 +80,34 @@ app.get("/api/player-stats/:transfermarktId", async (req, res) => {
   }
 });
 
+app.get("/api/club/:name", async (req, res) => {
+  const clubName = req.params.name;
+  try {
+    const response = await axios.get(
+      `https://transfermarkt-api.fly.dev/clubs/search/${clubName}?page_number=1`
+    );
+    const clubData = response.data.results[0];
+    res.json(clubData);
+  } catch (error) {
+    console.error("Error fetching club data:", error);
+    res.status(500).json({ error: "Error fetching club data" });
+  }
+});
+
+app.get("/api/club-details/:id", async (req, res) => {
+  const clubId = req.params.id;
+  try {
+    const response = await axios.get(
+      `https://transfermarkt-api.fly.dev/clubs/${clubId}/profile`
+    );
+    console.log(response);
+    res.json(response.data);
+  } catch (error) {
+    console.error("Error fetching club details:", error);
+    res.status(500).json({ error: "Error fetching club details" });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Serverul ruleaza pe portul ${PORT}`);
 });

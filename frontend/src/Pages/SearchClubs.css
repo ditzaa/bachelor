@@ -1,0 +1,55 @@
+.search-clubs-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.country-container,
+.league-container,
+.team-container {
+  margin-top: 20px;
+}
+
+.country-container img,
+.league-container img,
+.team-container img {
+  cursor: pointer;
+  margin: 10px;
+  transition: transform 0.2s;
+}
+
+.country-container img:hover,
+.league-container img:hover,
+.team-container img:hover {
+  transform: scale(1.1);
+}
+
+.search-bar {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.search-bar input {
+  padding: 10px;
+  width: 300px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-bar button {
+  padding: 10px 20px;
+  border: none;
+  background-color: var(--primary);
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.search-bar button:hover {
+  background-color: var(--primary-dark);
+}
