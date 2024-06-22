@@ -130,7 +130,7 @@ const ClubDetails = () => {
               <img
                 src={player.image}
                 alt={player.name}
-                className="player-image"
+                className="player-image-team"
               />
             </div>
           ))}

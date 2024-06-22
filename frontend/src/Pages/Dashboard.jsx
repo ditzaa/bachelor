@@ -34,6 +34,10 @@ const Dashboard = () => {
           <button className="dashboard-button">Search club</button>{" "}
         </Link>
 
+        <Link to="/friends">
+          <button className="dashboard-button">Add member</button>{" "}
+        </Link>
+
         <button className="dashboard-button">Favorite players list</button>
       </div>
     </>

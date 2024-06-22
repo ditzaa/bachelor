@@ -5,6 +5,10 @@ import Main from "./Pages/Main";
 import Dashboard from "./Pages/Dashboard";
 import SearchPlayer from "./Pages/SearchPlayer";
 import PlayerDetails from "./Pages/PlayerDetails";
+import FriendComponent from "./Pages/FriendComponent";
+import HomePg from "./Pages/HomePg";
+import SearchClubs from "./Pages/SearchClubs";
+import ClubDetails from "./Pages/ClubDetails";
 import {
   Route,
   createBrowserRouter,
@@ -27,14 +31,12 @@ const router = createBrowserRouter(
         path="/player-details/:playerId/:transfermarktId"
         element={<PlayerDetails />}
       />
+      <Route path="/friends" element={<FriendComponent />} />
       {/* <Route path="/player-videos/:playerId" element={<PlayerVideos />} /> */}
     </Route>
   )
 );
 
-import HomePg from "./Pages/HomePg";
-import SearchClubs from "./Pages/SearchClubs";
-import ClubDetails from "./Pages/ClubDetails";
 function App() {
   return <RouterProvider router={router} />;
 }

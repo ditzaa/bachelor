@@ -1,6 +1,5 @@
 const { DataTypes } = require("sequelize");
 const database = require("../config/db");
-//const { all } = require("../routes");
 
 module.exports = (database) => {
   const model = database.define("user", {

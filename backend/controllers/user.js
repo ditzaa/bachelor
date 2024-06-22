@@ -1,10 +1,11 @@
-const { RequestPageRounded } = require("@mui/icons-material");
 const { UserDb } = require("../models");
 const bcrypt = require("bcrypt");
+
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const jwt = require("jsonwebtoken");
+const { Op } = require("sequelize");
 
 const controller = {
   registerUser: async (req, res) => {
@@ -101,6 +102,38 @@ const controller = {
       //res.send('You are authenticated!')
     } catch {
       res.status(500).send("Server error!" + error.message);
+    }
+  },
+
+  searchUsersByName: async (req, res) => {
+    try {
+      const { username } = req.query;
+
+      const users = await UserDb.findAll({
+        where: {
+          username: {
+            [Op.like]: `%${username}%`,
+          },
+        },
+        attributes: [
+          "id",
+          "firstName",
+          "lastName",
+          "email",
+          "username",
+          "country",
+          "role",
+          "organisation",
+        ],
+      });
+
+      if (users.length === 0) {
+        return res.status(404).json({ error: "No users found" });
+      }
+
+      res.json(users);
+    } catch (error) {
+      res.status(500).send("Server error: " + error.message);
     }
   },
 };

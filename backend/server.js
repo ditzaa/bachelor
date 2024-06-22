@@ -108,19 +108,6 @@ app.get("/api/club-details/:id", async (req, res) => {
   }
 });
 
-// app.get("/api/club-players/:id", async (req, res) => {
-//   const clubId = req.params.id;
-//   try {
-//     const response = await axios.get(
-//       `https://transfermarkt-api.fly.dev/clubs/${clubId}/players`
-//     );
-//     res.json(response.data);
-//   } catch (error) {
-//     console.error("Error fetching club players:", error);
-//     res.status(500).json({ error: "Error fetching club players" });
-//   }
-// });
-
 // Add this endpoint to your existing backend code
 app.get("/api/club-players/:id", async (req, res) => {
   const clubId = req.params.id;
