@@ -13,17 +13,18 @@ const About = () => {
       </div>
       <div className="about-section-text-container">
         <h1 className="primary-subheading">
-          Building Winning Teams Starts Here
+          Construirea unei echipe câștigătoare începe aici!
         </h1>
         <p className="primary-subheading">
-          Our mission is to uncover hidden talent and nurture it to greatness.
+          Misiunea noastă este să descoperim viitoarele talente și să le aducem
+          în prim-planul lumii fotbalistice.
         </p>
         <p className="primary-text">
-          We understand the importance of teamwork, dedication, and passion in
-          the beautiful game.
+          Știm cât de importante sunt munca în echipă, dedicarea și pasiunea
+          pentru sportul-rege.
         </p>
         <div className="about-buttons-container">
-          <button className="secondary-button">Learn more</button>
+          <button className="secondary-button">Află mai multe</button>
         </div>
       </div>
     </div>

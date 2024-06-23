@@ -1,25 +1,21 @@
 import React, { useState, useEffect } from "react";
-import "./FriendComponent.css";
-import NavbarDash from "../Components/Dashboard/NavbarDash";
+import { useParams } from "react-router-dom";
 import axios from "axios";
+import NavbarDash from "../Components/Dashboard/NavbarDash";
+import "./FriendComponent.css";
 
 const UserSearchBar = () => {
+  const { userId } = useParams();
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [isFriend, setIsFriend] = useState({}); // Track friendship status
+  const [isFriend, setIsFriend] = useState({});
 
   const handleSearch = async () => {
     try {
       const response = await axios.get(
         `http://localhost:1234/api/user/search?username=${searchTerm}`
       );
-      const users = response.data;
-      // Update friendship status based on your backend logic (replace with actual logic)
-      const updatedUsers = users.map((user) => ({
-        ...user,
-        isFriend: user.id % 2 === 0, // Simulate friend status for demo (replace)
-      }));
-      setSearchResults(updatedUsers);
+      setSearchResults(response.data);
     } catch (error) {
       console.error("Error searching users:", error);
     }
@@ -29,20 +25,29 @@ const UserSearchBar = () => {
     setSearchTerm(event.target.value);
   };
 
-  const handleAddFriend = async (user) => {
+  const handleAddFriend = async (friendId) => {
     try {
-      // Send an API request to add/remove friend based on user.isFriend
-      // Update the 'isFriend' state for the corresponding user
-      setIsFriend({
-        ...isFriend,
-        [user.id]: !user.isFriend, // Toggle friendship status for demo (replace)
-      });
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        `http://localhost:1234/api/friend/add/${userId}/${friendId}`,
+        {},
+        {
+          headers: {
+            "x-access-token": token,
+          },
+        }
+      );
+      if (response.data.message === "Friend added successfully") {
+        setIsFriend({
+          ...isFriend,
+          [friendId]: true,
+        });
+      }
     } catch (error) {
-      console.error("Error adding/removing friend:", error);
+      console.error("Error adding friend:", error);
     }
   };
 
-  // Update friend status in state on search results change (optional)
   useEffect(() => {
     if (searchResults.length > 0) {
       const updatedIsFriend = searchResults.reduce((acc, user) => {
@@ -55,37 +60,40 @@ const UserSearchBar = () => {
 
   return (
     <>
-      <NavbarDash></NavbarDash>
+      <NavbarDash />
       <div className="user-search-container">
         <div className="user-search-bar">
           <input
             type="text"
-            placeholder="Search users by username"
+            placeholder="Caută utilizator după numele de utilizator"
             value={searchTerm}
             onChange={handleInputChange}
           />
-          <button onClick={handleSearch}>Search</button>
+          <button onClick={handleSearch}>Caută</button>
         </div>
 
-        {/* Display search results here */}
         {searchResults.length > 0 && (
           <div className="search-results">
             {searchResults.map((user) => (
               <div key={user.id} className="user-result">
-                <p>Username: {user.username}</p>
+                <p>
+                  <strong>Nume de utilizator:</strong> {user.username}
+                </p>
                 <div className="user-details">
                   <p>
-                    Name: {user.firstName} {user.lastName}
+                    <strong>Nume:</strong> {user.firstName} {user.lastName}
                   </p>
-                  <p>Role: {user.role}</p>
+                  <p>
+                    <strong>Rol:</strong> {user.role}
+                  </p>
                 </div>
                 <button
                   className={`add-friend-button ${
-                    user.isFriend ? "remove-friend" : ""
+                    isFriend[user.id] ? "remove-friend" : ""
                   }`}
-                  onClick={() => handleAddFriend(user)}
+                  onClick={() => handleAddFriend(user.id)}
                 >
-                  {user.isFriend ? "Remove Friend" : "Add Friend"}
+                  {isFriend[user.id] ? "Remove Friend" : "Add Friend"}
                 </button>
               </div>
             ))}

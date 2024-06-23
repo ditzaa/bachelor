@@ -50,10 +50,11 @@ const controller = {
         }
 
         const id = user.id;
-        const token = jwt.sign({ id }, "luam_licenta", { expiresIn: 300 });
+        console.log(id);
+        const token = jwt.sign({ id }, "luam_licenta", { expiresIn: 900 });
         console.log("---------SESSION-----\n");
         console.log(req.session.user);
-
+        //localStorage.setItem("userID", req.session.user.id);
         req.session.user = user;
         // res.status(201).send(user);
         res.status(201).json({ auth: true, token: token, result: user });
@@ -86,25 +87,23 @@ const controller = {
 
   verifyJWT: async (req, res, next) => {
     try {
-      const token = req.headers("x-acces-token");
+      const token = req.headers["x-access-token"];
       if (!token) {
-        res.send("A token is needed! Give it next time!");
-      } else {
-        jwt.verify(token, "luam_licenta", (err, decoded) => {
-          if (err) {
-            res.json({ auth: false, message: "You failed to authenticate" });
-          } else {
-            req.userId = decoded.id;
-            next();
-          }
-        });
+        return res.status(401).send("A token is needed! Provide it next time!");
       }
-      //res.send('You are authenticated!')
-    } catch {
+      jwt.verify(token, "luam_licenta", (err, decoded) => {
+        if (err) {
+          return res
+            .status(401)
+            .json({ auth: false, message: "You failed to authenticate" });
+        }
+        req.userId = decoded.id;
+        next();
+      });
+    } catch (error) {
       res.status(500).send("Server error!" + error.message);
     }
   },
-
   searchUsersByName: async (req, res) => {
     try {
       const { username } = req.query;

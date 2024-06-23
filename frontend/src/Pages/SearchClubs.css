@@ -1,55 +1,92 @@
+/* Font import */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
 .search-clubs-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.country-container,
-.league-container,
-.team-container {
-  margin-top: 20px;
-}
-
-.country-container img,
-.league-container img,
-.team-container img {
-  cursor: pointer;
-  margin: 10px;
-  transition: transform 0.2s;
-}
-
-.country-container img:hover,
-.league-container img:hover,
-.team-container img:hover {
-  transform: scale(1.1);
+  padding-top: 20px;
 }
 
 .search-bar {
-  margin-top: 20px;
+  width: 400px;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .search-bar input {
   padding: 10px;
-  width: 300px;
-  margin-right: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  flex: 1;
+  margin-right: 10px;
 }
 
 .search-bar button {
-  padding: 10px 20px;
+  padding: 10px 15px;
+  background-color: #333;
+  color: #fff;
   border: none;
-  background-color: var(--primary);
-  color: white;
-  cursor: pointer;
   border-radius: 4px;
-  transition: background-color 0.2s;
+  cursor: pointer;
 }
 
-.search-bar button:hover {
-  background-color: var(--primary-dark);
+.search-results {
+  background-color: #eee;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 400px; /* Reduced max-width */
+}
+
+.team-result {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.2s; /* Add transition for scaling */
+  cursor: pointer; /* Change cursor to pointer */
+}
+
+.team-result:hover {
+  transform: scale(1.05); /* Scale up on hover */
+}
+
+.team-result p {
+  margin: 10px 0 0; /* Margin for text under the image */
+  font-weight: bold; /* Bold text for club name */
+}
+
+.team-result .team-details {
+  margin-bottom: 10px;
+}
+
+/* Responsive Design (Media Queries) */
+
+@media (max-width: 768px) {
+  .search-clubs-container {
+    width: 90%;
+  }
+
+  .search-bar {
+    width: 100%;
+  }
+
+  .search-results {
+    width: 100%;
+  }
+
+  .team-result {
+    padding: 15px;
+  }
 }

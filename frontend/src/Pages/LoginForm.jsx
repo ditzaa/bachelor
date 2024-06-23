@@ -31,8 +31,11 @@ const LoginForm = () => {
     axios
       .post("http://localhost:1234/api/user/login", loginData)
       .then((response) => {
-        console.log(response.data);
+        console.log("Raspuns handle login" + response.data);
         navigate("/dashboard", { replace: true });
+        localStorage.setItem("token", response.data.token);
+        const userId = response.data.result.id;
+        localStorage.setItem("userID", userId);
       })
       .catch((error) => {
         console.error("Error logging user: ", error);
@@ -60,12 +63,12 @@ const LoginForm = () => {
       </div>
       <div className="login-container">
         <div className="wrapper">
-          <h1>Sign In</h1>
+          <h1>Autentificare</h1>
           <form action="" onSubmit={handleLogin}>
             <div className="input-box">
               <input
                 type="text"
-                placeholder="Username"
+                placeholder="Nume de utilizator"
                 name="username"
                 required
                 value={loginData.username}
@@ -76,7 +79,7 @@ const LoginForm = () => {
             <div className="input-box">
               <input
                 type="password"
-                placeholder="Password"
+                placeholder="Parola"
                 name="password"
                 required
                 value={loginData.password}
@@ -89,18 +92,18 @@ const LoginForm = () => {
               <label>
                 {" "}
                 <input type="checkbox" />
-                Remember me
+                Ține-mă minte
               </label>
-              <a href="#">Forgot password?</a>
+              <a href="#">Ai uitat parola?</a>
             </div>
 
             <button className="btn-login" type="submit">
-              Login
+              Logare
             </button>
 
             <div className="register-link">
               <p>
-                {"Don't have an account?"} <Link to="/register">Register</Link>
+                {"Nu ai un cont?"} <Link to="/register">Înregistrează-te</Link>
               </p>
             </div>
           </form>

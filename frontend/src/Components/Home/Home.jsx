@@ -15,15 +15,15 @@ const Home = () => {
         </div>
         <div className="home-text-section">
           <h1 className="primary-heading">
-            Discover The Next Top Talents in Football
+            Descoperă următoarea stea a fotbalului!
           </h1>
           <p className="primary-text">
-            Get ahead of the game with our comprehensive scouting reports and
-            insights.
+            Fii înaintea competiției cu rapoartele și informațiile noastre
+            cuprinzătoare de scouting.
           </p>
           <Link to="/register" className="link-class">
             <button className="secondary-button">
-              Scout Now <FiArrowRight />{" "}
+              Începe scoutingul acum <FiArrowRight />{" "}
             </button>
           </Link>
         </div>

@@ -6,28 +6,28 @@ const Work = () => {
   const workInfoData = [
     {
       image: SearchImg,
-      title: "Discover Talents",
-      text: "Utilize the search feature to find potential players based on your preferred criteria.",
+      title: "Descoperă talente",
+      text: "Utilizează funcționalitatea de căutare pentru a găsi potențiali jucători bazat pe criteriile tale de căutare.",
     },
     {
       image: AnalyseImg,
-      title: "Analyze Performances",
-      text: "Evaluate players' skills and performances using our analysis tools. ",
+      title: "Analizează performanțele",
+      text: "Evaluează calitățile jucătorilor și performanțele acestora folosind informațiile furnizate de către noi. ",
     },
     {
       image: SaveImg,
-      title: "Save and share",
-      text: "Save your favorite players to a personal list and share the results with your team.",
+      title: "Salvează și distribuie",
+      text: "Salvează-ți jucătorii preferați într-o listă personală de jucători favoriți și împărtășește rezultatele cu colegii tăi.",
     },
   ];
 
   return (
     <div className="work-section-wrapper">
       <div className="work-section-top">
-        <h1 className="primary-heading">How It Works</h1>
+        <h1 className="primary-heading">Cum funcționează?</h1>
         <p className="primary-text">
-          Our platform streamlines the scouting process, making it easier to
-          find the perfect fit for your team.
+          Platforma noastră facilitează procesul de scouting și ușurează găsirea
+          jucătorului perfect pentru echipa ta.
         </p>
       </div>
       <div className="work-section-bottom">

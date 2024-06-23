@@ -61,13 +61,13 @@ const Register = () => {
 
       <div className="register-container">
         <div className="wrapper-register">
-          <h1>Register</h1>
+          <h1>Înregistrare</h1>
           <form action="" onSubmit={handleSubmit}>
             <div className="input-box">
               <input
                 type="text"
                 name="firstName"
-                placeholder="First Name"
+                placeholder="Prenume"
                 value={formData.firstName}
                 onChange={handleChange}
                 required
@@ -77,7 +77,7 @@ const Register = () => {
             <div className="input-box">
               <input
                 type="text"
-                placeholder="Last Name"
+                placeholder="Nume de familie"
                 required
                 name="lastName"
                 value={formData.lastName}
@@ -99,7 +99,7 @@ const Register = () => {
             <div className="input-box">
               <input
                 type="text"
-                placeholder="Username"
+                placeholder="Nume de utilizator"
                 required
                 name="username"
                 value={formData.username}
@@ -110,7 +110,7 @@ const Register = () => {
             <div className="input-box">
               <input
                 type="password"
-                placeholder="Password"
+                placeholder="Parola"
                 required
                 name="password"
                 value={formData.password}
@@ -142,7 +142,7 @@ const Register = () => {
             <div className="input-box">
               <input
                 type="text"
-                placeholder="Club / Company"
+                placeholder="Club / Companie"
                 required
                 name="organisation"
                 value={formData.organisation}
@@ -152,7 +152,7 @@ const Register = () => {
             </div>
 
             <button className="button-login" type="submit">
-              Create account
+              Creează cont
             </button>
           </form>
         </div>

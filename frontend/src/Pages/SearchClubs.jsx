@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import {
-  Container,
-  TextField,
-  Button,
-  Box,
-  Typography,
-  Grid,
-} from "@mui/material";
+import NavbarDash from "../Components/Dashboard/NavbarDash";
+import "./SearchClubs.css";
 import { useNavigate } from "react-router-dom";
 
 const SearchClubs = () => {
@@ -45,60 +39,42 @@ const SearchClubs = () => {
     navigate.goBack();
   };
 
-  return (
-    <Container>
-      <Box mt={4}>
-        <Typography variant="h4" gutterBottom>
-          Search Clubs
-        </Typography>
-        <TextField
-          label="Search for a team"
-          variant="outlined"
-          fullWidth
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleSearch}
-          sx={{ mt: 2, mr: 2 }}
-        >
-          Search
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={handleBack}
-          sx={{ mt: 2 }}
-        >
-          Back
-        </Button>
-      </Box>
+  const handleInputChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
 
-      {teams.length > 0 && (
-        <Box mt={4}>
-          <Typography variant="h5" gutterBottom>
-            Teams
-          </Typography>
-          <Grid container spacing={2}>
+  return (
+    <>
+      <NavbarDash />
+      <div className="search-clubs-container">
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Caută cluburi după nume"
+            value={searchTerm}
+            onChange={handleInputChange}
+          />
+          <button onClick={handleSearch}>Caută</button>
+        </div>
+
+        {teams.length > 0 && (
+          <div className="search-results">
             {teams.map((team) => (
-              <Grid item xs={12} sm={6} md={4} key={team.idTeam}>
-                <Box sx={{ textAlign: "center" }}>
-                  {/* Folosim onClick pentru a apela handleClubClick */}
-                  <div
-                    onClick={() => handleClubClick(team.idTeam, team.strTeam)}
-                  >
-                    <img src={team.strBadge} alt={team.strTeam} width={100} />
-                    <Typography>{team.strTeam}</Typography>
-                  </div>
-                </Box>
-              </Grid>
+              <div
+                key={team.idTeam}
+                className="team-result"
+                onClick={() => handleClubClick(team.idTeam, team.strTeam)}
+              >
+                <div className="team-details">
+                  <img src={team.strBadge} alt={team.strTeam} width={100} />
+                  <p>{team.strTeam}</p>
+                </div>
+              </div>
             ))}
-          </Grid>
-        </Box>
-      )}
-    </Container>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

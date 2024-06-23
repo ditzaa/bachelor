@@ -10,9 +10,9 @@ function Footer() {
       </div>
       <div className="footer-section-two">
         <div className="footer-section-columns">
-          <span>Help</span>
-          <span>Share</span>
-          <span>Work</span>
+          <span>Ajutor</span>
+          <span>Distribuie</span>
+          <span>Munca noastră</span>
         </div>
         <div className="footer-section-columns">
           <span>0746337825</span>

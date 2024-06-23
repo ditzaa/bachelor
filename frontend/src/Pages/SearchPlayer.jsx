@@ -36,17 +36,17 @@ const SearchPlayer = () => {
     <>
       <NavbarDash />
       <div className="search-players-container">
-        <h1>Search Players</h1>
+        <h1>Caută jucători</h1>
         <input
           type="text"
-          placeholder="Enter player name"
+          placeholder="Introdu numele jucătorului"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="search-input"
           style={{ width: "300px", marginLeft: "10px" }}
         />
         <button onClick={handleSearch} className="search-button">
-          Search
+          Caută
         </button>
         <div className="results-container">
           {players &&

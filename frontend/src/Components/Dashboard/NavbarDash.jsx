@@ -36,12 +36,12 @@ const NavbarDash = () => {
         <img src={Logo} alt="" />
       </div>
       <div className="navbar-links-container">
-        <Link to="/">Home</Link>
+        <Link to="/">Acasă</Link>
         {/* <a href="">Home</a> */}
-        <a href="">About</a>
+        <a href="">Despre</a>
         <a href="">Contact</a>
         <Link to="/login">
-          <button className="primary-button">Logout</button>
+          <button className="primary-button">Delogare</button>
         </Link>
       </div>
       <div className="navbar-menu-container">

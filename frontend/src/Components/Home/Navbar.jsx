@@ -21,7 +21,7 @@ const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const menuOptions = [
     {
-      text: "Home",
+      text: "Acasă",
       icon: <HomeIcon />,
     },
     {
@@ -36,12 +36,12 @@ const Navbar = () => {
         <img src={Logo} alt="" />
       </div>
       <div className="navbar-links-container">
-        <Link to="/">Home</Link>
+        <Link to="/">Acasă</Link>
         {/* <a href="">Home</a> */}
-        <a href="">About</a>
+        <a href="">Despre</a>
         <a href="">Contact</a>
         <Link to="/login">
-          <button className="primary-button">Login</button>
+          <button className="primary-button">Logare</button>
         </Link>
       </div>
       <div className="navbar-menu-container">

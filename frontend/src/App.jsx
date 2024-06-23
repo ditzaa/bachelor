@@ -31,8 +31,7 @@ const router = createBrowserRouter(
         path="/player-details/:playerId/:transfermarktId"
         element={<PlayerDetails />}
       />
-      <Route path="/friends" element={<FriendComponent />} />
-      {/* <Route path="/player-videos/:playerId" element={<PlayerVideos />} /> */}
+      <Route path="/friends/:userId" element={<FriendComponent />} />
     </Route>
   )
 );

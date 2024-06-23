@@ -14,6 +14,7 @@ const PlayerDetails = () => {
   const [contracts, setContracts] = useState([]);
   const [statistics, setStatistics] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
+  const userId = localStorage.getItem("userID");
   const navigate = useNavigate();
 
   const fetchStatistics = async (transfermarktId) => {
@@ -72,8 +73,34 @@ const PlayerDetails = () => {
     fetchPlayerData();
   }, [playerId, transfermarktId]);
 
-  const toggleFavorite = () => {
-    setIsFavorite(!isFavorite);
+  const toggleFavorite = async () => {
+    try {
+      //const response = await axios.get("http://localhost:1234/api/user/login");
+      //const userId = response.data.user.id;
+
+      const url = isFavorite
+        ? "http://localhost:1234/api/player/remove"
+        : "http://localhost:1234/api/player/add";
+
+      const method = isFavorite ? "post" : "post";
+      const data = {
+        idTransfermarkt: transfermarktId,
+        idTheSportsDB: playerId,
+        name: player.strPlayer,
+        team: player.strTeam,
+        id: userId,
+      };
+
+      await axios({
+        method,
+        url,
+        data,
+      });
+
+      setIsFavorite(!isFavorite);
+    } catch (error) {
+      console.error("Error toggling favorite:", error);
+    }
   };
 
   const handleVideosClick = () => {
@@ -86,7 +113,7 @@ const PlayerDetails = () => {
 
   return (
     <>
-      <NavbarDash></NavbarDash>
+      <NavbarDash />
       <div className="player-details-container">
         <div className="player-card">
           <h1>{player.strPlayer}</h1>
@@ -97,54 +124,54 @@ const PlayerDetails = () => {
           />
           <div className="player-info">
             <p>
-              <strong>Team:</strong> {player.strTeam}
+              <strong>Echipă:</strong> {player.strTeam}
             </p>
             <p>
-              <strong>Position:</strong> {player.strPosition}
+              <strong>Poziție:</strong> {player.strPosition}
             </p>
             <p>
-              <strong>Birth Place:</strong> {player.strBirthLocation}
+              <strong>Locul nașterii:</strong> {player.strBirthLocation}
             </p>
             <p>
-              <strong>Birth Date:</strong> {player.dateBorn}
+              <strong>Data nașterii:</strong> {player.dateBorn}
             </p>
             <p>
-              <strong>Nationality:</strong> {player.strNationality}
+              <strong>Nationalitate:</strong> {player.strNationality}
             </p>
             <p>
-              <strong>Height:</strong> {player.strHeight}
+              <strong>Înălțime:</strong> {player.strHeight}
             </p>
             <p>
-              <strong>Weight:</strong> {player.strWeight}
+              <strong>Greutate:</strong> {player.strWeight}
             </p>
             <p>
-              <strong>Team Number:</strong> {player.strNumber}
+              <strong>Număr echipă:</strong> {player.strNumber}
             </p>
             <p>
-              <strong>Market Value:</strong> {player.strSigning || "N/A"}
+              <strong>Valoare de piață:</strong> {player.strSigning || "N/A"}
             </p>
           </div>
         </div>
 
         <div className="button-container">
           <button onClick={() => navigate(-1)} className="back-button">
-            Back
+            Înapoi
           </button>
           <button onClick={toggleFavorite} className="favorite-button">
             <FaStar color={isFavorite ? "gold" : "grey"} />
-            {isFavorite ? " Remove from Favorites" : " Add to Favorites"}
+            {isFavorite ? " Șterge din favorite" : " Adaugă la favorite"}
           </button>
           <button onClick={handleVideosClick} className="videos-button">
-            View Videos
+            Videoclipuri
           </button>
         </div>
 
         <div className="player-details-card">
           <p className="description">
-            <strong>Description:</strong> {player.strDescriptionEN}
+            <strong>Descriere(EN):</strong> {player.strDescriptionEN}
           </p>
 
-          <h2>Honours</h2>
+          <h2>Premii</h2>
           <ul className="no-bullets">
             {honours.map((honour) => (
               <li key={honour.id}>
@@ -153,24 +180,24 @@ const PlayerDetails = () => {
             ))}
           </ul>
 
-          <h2>Milestones</h2>
+          <h2>Realizări</h2>
           <ul className="no-bullets">
             {milestones.map((milestone) => (
               <li key={milestone.id}>{milestone.strMilestone}</li>
             ))}
           </ul>
 
-          <h2>Statistics</h2>
+          <h2>Statistici</h2>
           <table className="statistics-table">
             <thead>
               <tr>
-                <th>Competition</th>
-                <th>Season</th>
-                <th>Appearances</th>
-                <th>Goals</th>
-                <th>Assists</th>
-                <th>Yellow Cards</th>
-                <th>Minutes Played</th>
+                <th>Competiție</th>
+                <th>Sezon</th>
+                <th>Apariții</th>
+                <th>Goluri</th>
+                <th>Assist-uri</th>
+                <th>Cartonașe galbene</th>
+                <th>Minute jucate</th>
               </tr>
             </thead>
             <tbody>
@@ -188,7 +215,7 @@ const PlayerDetails = () => {
             </tbody>
           </table>
 
-          <h2>Former Teams</h2>
+          <h2>Foste echipe</h2>
           <ul className="no-bullets">
             {formerTeams.map((team) => (
               <li key={team.id}>
@@ -197,7 +224,7 @@ const PlayerDetails = () => {
             ))}
           </ul>
 
-          <h2>Contracts</h2>
+          <h2>Contracte</h2>
           <ul className="no-bullets">
             {contracts.map((contract) => (
               <li key={contract.id}>
