@@ -75,14 +75,11 @@ const PlayerDetails = () => {
 
   const toggleFavorite = async () => {
     try {
-      //const response = await axios.get("http://localhost:1234/api/user/login");
-      //const userId = response.data.user.id;
-
       const url = isFavorite
         ? "http://localhost:1234/api/player/remove"
         : "http://localhost:1234/api/player/add";
 
-      const method = isFavorite ? "post" : "post";
+      const method = isFavorite ? "delete" : "post";
       const data = {
         idTransfermarkt: transfermarktId,
         idTheSportsDB: playerId,
@@ -115,7 +112,7 @@ const PlayerDetails = () => {
     <>
       <NavbarDash />
       <div className="player-details-container">
-        <div className="player-card">
+        <div className="player-card-1">
           <h1>{player.strPlayer}</h1>
           <img
             src={player.strCutout || player.strThumb}

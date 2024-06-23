@@ -2,11 +2,8 @@
   --text: #040508;
   --background: #f8fafc;
   --primary: #4d76bc;
-  --secondary: #9bb3dd;
   --accent: #6d92d2;
   --success: #28a745;
-  --warning: #ffc107;
-  --danger: #dc3545;
 }
 
 .player-details-container {
@@ -18,37 +15,36 @@
   min-height: 100vh;
 }
 
-.player-card,
+.player-card-1,
 .player-details-card {
   background: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin: 20px;
-  width: 100%;
   max-width: 600px;
-  text-align: center; /* Center align text */
+  width: 100%;
+  text-align: center;
 }
 
-.player-card h1 {
+.player-card-1 h1 {
   margin-bottom: 20px;
 }
 
 .player-image {
-  width: 200px;
+  width: 100%;
   height: auto;
-  margin-bottom: 20px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 300px; /* Dimensiunea maximă dorită pentru imagine */
+  border-radius: 10px; /* Rotunjim colțurile imaginii */
+  object-fit: cover; /* Afișează imaginea completă, fără a fi tăiată */
 }
 
 .player-info {
-  text-align: center; /* Center align text */
+  text-align: center;
 }
 
 .player-info p {
-  margin: 5px 0; /* Add some spacing between the items */
+  margin: 5px 0;
 }
 
 .description {
@@ -94,7 +90,7 @@
 .no-bullets {
   list-style: none;
   padding: 0;
-  text-align: center; /* Center align text */
+  text-align: center;
 }
 
 .statistics-table {
@@ -107,7 +103,7 @@
 .statistics-table td {
   border: 1px solid #ddd;
   padding: 8px;
-  text-align: center; /* Center align text */
+  text-align: center;
 }
 
 .statistics-table th {
@@ -138,9 +134,10 @@
     width: 100%;
   }
 
-  .player-card,
+  .player-card-1,
   .player-details-card {
     width: 90%;
+    margin: 10px;
   }
 
   .button-container {

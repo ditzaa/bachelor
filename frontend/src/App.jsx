@@ -15,6 +15,7 @@ import {
   createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
+import FavoritePlayersList from "./Pages/FavoritePlayersList";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,6 +33,7 @@ const router = createBrowserRouter(
         element={<PlayerDetails />}
       />
       <Route path="/friends/:userId" element={<FriendComponent />} />
+      <Route path="/players-list" element={<FavoritePlayersList />} />
     </Route>
   )
 );

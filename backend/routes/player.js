@@ -5,6 +5,7 @@ const router = express.Router();
 const { playerController } = require("../controllers");
 
 router.post("/add", playerController.addFavoritePlayer);
-router.post("/remove", playerController.removeFavoritePlayer);
+router.delete("/remove", playerController.removeFavoritePlayer);
+router.get("/favorites/:userId", playerController.getFavoritePlayers);
 
 module.exports = router;

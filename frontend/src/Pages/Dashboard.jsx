@@ -43,7 +43,9 @@ const Dashboard = () => {
           <button className="dashboard-button">Adaugă membru</button>{" "}
         </Link>
 
-        <button className="dashboard-button">Listă jucători favoriți</button>
+        <Link to={`/players-list`}>
+          <button className="dashboard-button">Listă jucători favoriți</button>
+        </Link>
       </div>
     </>
   );
