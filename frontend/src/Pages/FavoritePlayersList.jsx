@@ -19,7 +19,8 @@ const FavoritePlayersList = () => {
       const playerDetails = await Promise.all(
         response.data.map(async (player) => {
           const playerData = await axios.get(
-            `https://www.thesportsdb.com/api/v1/json/3/lookupplayer.php?id=${player.idTheSportsDB}`
+            //`https://www.thesportsdb.com/api/v1/json/3/lookupplayer.php?id=${player.idTheSportsDB}`
+            `http://localhost:1234/api/player-details-favorites/${player.idTheSportsDB}`
           );
           return playerData.data.players[0];
         })

@@ -197,3 +197,16 @@ app.get("/api/search/clubs/:name", async (req, res) => {
     res.status(500).json({ error: "Error searching clubs" });
   }
 });
+
+app.get("/api/player-details-favorites/:id", async (req, res) => {
+  const playerId = req.params.id;
+  try {
+    const response = await axios.get(
+      `https://www.thesportsdb.com/api/v1/json/3/lookupplayer.php?id=${playerId}`
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error("Error fetching player details:", error);
+    res.status(500).json({ error: "Error fetching player details" });
+  }
+});

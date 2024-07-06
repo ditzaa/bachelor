@@ -29,7 +29,7 @@ const ClubDetails = () => {
   const fetchSportsDBId = async (playerName) => {
     try {
       const response = await axios.get(
-        `https://www.thesportsdb.com/api/v1/json/3/searchplayers.php?p=${playerName}`
+        `http://localhost:1234/api/search/player/${playerName}`
       );
       return response.data.player ? response.data.player[0].idPlayer : null;
     } catch (error) {
