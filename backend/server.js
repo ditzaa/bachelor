@@ -1,14 +1,11 @@
 const express = require("express");
 const database = require("./config/db");
 const cors = require("cors");
-const bcrypt = require("bcrypt");
 const router = require("./routes");
 const axios = require("axios");
-
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const session = require("express-session");
-const jwt = require("jsonwebtoken");
 
 require("./models");
 
@@ -18,15 +15,13 @@ const PORT = 1234;
 app.use(
   cors({
     origin: ["http://localhost:5173"],
-    methods: ["GET", "POST", "HEAD", "DELETE"],
+    methods: ["GET", "POST", "HEAD", "DELETE", "UPDATE"],
     credentials: true,
   })
 );
 
 app.use(express.json());
-
 app.use(cookieParser());
-
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(
@@ -42,6 +37,10 @@ app.use(
 );
 
 app.use("/api", router);
+
+app.listen(PORT, () => {
+  console.log(`Serverul ruleaza pe portul ${PORT}`);
+});
 
 app.get("/db-reset", async (req, res) => {
   try {
@@ -100,7 +99,6 @@ app.get("/api/club-details/:id", async (req, res) => {
     const response = await axios.get(
       `https://transfermarkt-api.fly.dev/clubs/${clubId}/profile`
     );
-    //console.log(response);
     res.json(response.data);
   } catch (error) {
     console.error("Error fetching club details:", error);
@@ -108,19 +106,15 @@ app.get("/api/club-details/:id", async (req, res) => {
   }
 });
 
-// Add this endpoint to your existing backend code
 app.get("/api/club-players/:id", async (req, res) => {
   const clubId = req.params.id;
-
   try {
-    // Fetch the list of players for the club
     const playersResponse = await axios.get(
       `https://transfermarkt-api.fly.dev/clubs/${clubId}/players`
     );
 
     const players = playersResponse.data.players;
 
-    // Fetch each player's profile
     const playerProfiles = await Promise.all(
       players.map(async (player) => {
         const profileResponse = await axios.get(
@@ -144,6 +138,15 @@ app.get("/api/club-players/:id", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Serverul ruleaza pe portul ${PORT}`);
+app.get("/api/search/player/:name", async (req, res) => {
+  try {
+    const playerName = req.params.name;
+    const response = await axios.get(
+      `https://www.thesportsdb.com/api/v1/json/3/searchplayers.php?p=${playerName}`
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error("Error searching player:", error);
+    res.status(500).json({ error: "Error fetching player stats" });
+  }
 });

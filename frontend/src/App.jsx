@@ -9,13 +9,13 @@ import FriendComponent from "./Pages/FriendComponent";
 import HomePg from "./Pages/HomePg";
 import SearchClubs from "./Pages/SearchClubs";
 import ClubDetails from "./Pages/ClubDetails";
+import FavoritePlayersList from "./Pages/FavoritePlayersList";
 import {
   Route,
   createBrowserRouter,
   createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
-import FavoritePlayersList from "./Pages/FavoritePlayersList";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

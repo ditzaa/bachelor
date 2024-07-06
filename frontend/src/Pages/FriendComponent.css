@@ -1,78 +1,109 @@
-.favorite-players-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  text-align: center;
+/* Font import */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+body {
+  font-family: "Roboto", sans-serif;
 }
 
-.favorite-players-container h1 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-}
-
-.view-toggle {
+.user-search-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.user-search-bar {
+  width: 400px;
+  display: flex;
+  align-items: center;
   margin-bottom: 20px;
 }
 
-.view-toggle button {
-  background-color: #007bff;
+.user-search-bar input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex: 1;
+  margin-right: 10px;
+}
+
+.user-search-bar button {
+  padding: 10px 15px;
+  background-color: var(--primary);
+  color: #fff;
   border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.user-search-bar button:hover {
+  background-color: #555;
+}
+
+.search-results {
+  background-color: #eee;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 400px;
+}
+
+.user-result {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.user-result:hover {
+  transform: scale(1.05);
+}
+
+.user-details {
+  margin-bottom: 10px;
+}
+
+.add-friend-button {
+  padding: 10px 15px;
+  background-color: var(--primary);
   color: white;
-  padding: 10px 20px;
-  margin: 0 10px;
-  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
-.view-toggle button:hover {
+.add-friend-button.remove-friend {
+  background-color: #dc3545;
+}
+
+.add-friend-button:hover {
   background-color: #0056b3;
 }
 
-.view-toggle button.active {
-  background-color: #0056b3;
+.add-friend-button.remove-friend:hover {
+  background-color: #c82333;
 }
 
-.players-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-}
+/* Responsive Design (Media Queries) */
 
-.player-card {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: transform 0.2s;
-  cursor: pointer;
-  max-width: 200px;
-  text-align: left;
-}
+@media (max-width: 768px) {
+  .user-search-container {
+    width: 90%;
+  }
 
-.player-card:hover {
-  transform: scale(1.05);
-}
+  .user-search-bar {
+    width: 100%;
+  }
 
-.player-info {
-  padding: 15px;
-}
-
-.player-info h2 {
-  font-size: 1.25rem;
-  margin-bottom: 10px;
-}
-
-.player-info p {
-  margin: 5px 0;
-  color: #555;
-}
-
-.player-image {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
+  .search-results {
+    width: 100%;
+  }
 }

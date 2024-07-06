@@ -21,13 +21,13 @@
   border: none;
   border-radius: 4px;
   margin: 0 10px;
-  background-color: #007bff;
+  background-color: var(--primary);
   color: white;
   transition: background-color 0.3s;
 }
 
 .view-toggle button.active {
-  background-color: #0056b3;
+  background-color: var(--primary);
 }
 
 .view-toggle button:hover {

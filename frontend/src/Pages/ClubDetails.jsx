@@ -76,10 +76,10 @@ const ClubDetails = () => {
           />
           <div className="club-info">
             <p>
-              <strong>Official Name:</strong> {clubDetails.officialName}
+              <strong>Nume oficial:</strong> {clubDetails.officialName}
             </p>
             <p>
-              <strong>Founded:</strong> {clubDetails.foundedOn}
+              <strong>Fondat:</strong> {clubDetails.foundedOn}
             </p>
             <p>
               <strong>Website:</strong>{" "}
@@ -92,19 +92,19 @@ const ClubDetails = () => {
               </a>
             </p>
             <p>
-              <strong>Stadium:</strong> {clubDetails.stadiumName} (
+              <strong>Stadion:</strong> {clubDetails.stadiumName} (
               {clubDetails.stadiumSeats} seats)
             </p>
             <p>
-              <strong>Current Market Value:</strong>{" "}
+              <strong>Valoarea pe piață:</strong>{" "}
               {clubDetails.currentMarketValue}
             </p>
             <p>
-              <strong>Current Transfer Record:</strong>{" "}
+              <strong>Suma record de transfer:</strong>{" "}
               {clubDetails.currentTransferRecord}
             </p>
             <p>
-              <strong>League:</strong> {clubDetails.league.name} -{" "}
+              <strong>Ligă:</strong> {clubDetails.league.name} -{" "}
               {clubDetails.league.countryName}
             </p>
           </div>

@@ -36,8 +36,7 @@ const NavbarDash = () => {
         <img src={Logo} alt="" />
       </div>
       <div className="navbar-links-container">
-        <Link to="/">Acasă</Link>
-        {/* <a href="">Home</a> */}
+        <Link to="/dashboard">Acasă</Link>
         <a href="">Despre</a>
         <a href="">Contact</a>
         <Link to="/login">

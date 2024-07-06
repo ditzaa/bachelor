@@ -31,7 +31,6 @@ const LoginForm = () => {
     axios
       .post("http://localhost:1234/api/user/login", loginData)
       .then((response) => {
-        console.log("Raspuns handle login" + response.data);
         navigate("/dashboard", { replace: true });
         localStorage.setItem("token", response.data.token);
         const userId = response.data.result.id;

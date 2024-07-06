@@ -1,11 +1,7 @@
-const { UserDb } = require("../models");
 const bcrypt = require("bcrypt");
-
-const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
-const session = require("express-session");
 const jwt = require("jsonwebtoken");
 const { Op } = require("sequelize");
+const { UserDb } = require("../models");
 
 const controller = {
   registerUser: async (req, res) => {
@@ -50,13 +46,8 @@ const controller = {
         }
 
         const id = user.id;
-        console.log(id);
         const token = jwt.sign({ id }, "luam_licenta", { expiresIn: 900 });
-        console.log("---------SESSION-----\n");
-        console.log(req.session.user);
-        //localStorage.setItem("userID", req.session.user.id);
         req.session.user = user;
-        // res.status(201).send(user);
         res.status(201).json({ auth: true, token: token, result: user });
       });
     } catch (error) {
@@ -71,7 +62,6 @@ const controller = {
       } else {
         res.send({ loggedIn: false });
       }
-      console.log(req.session);
     } catch {
       res.status(500).send("Server error!" + error.message);
     }

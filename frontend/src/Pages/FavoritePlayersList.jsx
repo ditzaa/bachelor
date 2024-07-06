@@ -96,19 +96,19 @@ const FavoritePlayersList = () => {
     <>
       <NavbarDash />
       <div className="favorite-players-container">
-        <h1>Favorite Players</h1>
+        <h1>Jucători preferați</h1>
         <div className="view-toggle">
           <button
             className={view === "user" ? "active" : ""}
             onClick={() => handleViewToggle("user")}
           >
-            My Favorite Players
+            Jucătorii mei favoriți
           </button>
           <button
             className={view === "friends" ? "active" : ""}
             onClick={() => handleViewToggle("friends")}
           >
-            Friends' Favorite Players
+            Jucătorii favoriți ai prietenilor
           </button>
         </div>
         <div className="players-list">

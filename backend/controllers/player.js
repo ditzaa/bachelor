@@ -28,7 +28,7 @@ const controller = {
       const deletedPlayer = await PlayerDb.destroy({
         where: {
           idTransfermarkt,
-          userId: id, // Asigură-te că userId-ul este corect
+          userId: id,
         },
       });
 
