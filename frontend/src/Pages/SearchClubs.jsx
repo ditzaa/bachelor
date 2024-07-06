@@ -22,13 +22,10 @@ const SearchClubs = () => {
 
   const handleClubClick = async (teamId, teamName) => {
     try {
-      // Cererea către backend pentru a obține id-ul Transfermarkt
       const response = await axios.get(
         `http://localhost:1234/api/club/${teamName}`
       );
       const transfermarktId = response.data.id;
-
-      // Redirecționăm către ClubDetails cu id-ul de la Transfermarkt
       navigate(`/club-details/${transfermarktId}`);
     } catch (error) {
       console.error("Error fetching Transfermarkt ID:", error);
@@ -36,23 +33,34 @@ const SearchClubs = () => {
   };
 
   const handleBack = () => {
-    navigate.goBack();
+    navigate(-1);
   };
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   return (
     <>
       <NavbarDash />
       <div className="search-clubs-container">
+        <h3>Caută cluburi de fotbal</h3>
         <div className="search-bar">
+          <button className="back-button" onClick={handleBack}>
+            Înapoi
+          </button>
           <input
             type="text"
             placeholder="Caută cluburi după nume"
             value={searchTerm}
             onChange={handleInputChange}
+            onKeyPress={handleKeyPress}
           />
           <button onClick={handleSearch}>Caută</button>
         </div>

@@ -12,14 +12,14 @@ body {
   padding-top: 20px;
 }
 
-.user-search-bar {
+.search-bar {
   width: 400px;
   display: flex;
   align-items: center;
   margin-bottom: 20px;
 }
 
-.user-search-bar input {
+.search-bar input {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -27,7 +27,7 @@ body {
   margin-right: 10px;
 }
 
-.user-search-bar button {
+.search-bar button {
   padding: 10px 15px;
   background-color: var(--primary);
   color: #fff;
@@ -36,7 +36,7 @@ body {
   cursor: pointer;
 }
 
-.user-search-bar button:hover {
+.search-bar button:hover {
   background-color: #555;
 }
 
@@ -99,7 +99,7 @@ body {
     width: 90%;
   }
 
-  .user-search-bar {
+  .search-bar {
     width: 100%;
   }
 

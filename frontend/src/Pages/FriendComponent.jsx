@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import NavbarDash from "../Components/Dashboard/NavbarDash";
 import "./FriendComponent.css";
@@ -9,6 +9,7 @@ const UserSearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isFriend, setIsFriend] = useState({});
+  const navigate = useNavigate();
 
   const handleSearch = async () => {
     try {
@@ -23,6 +24,12 @@ const UserSearchBar = () => {
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSearch();
+    }
   };
 
   const handleAddFriend = async (friendId) => {
@@ -48,6 +55,10 @@ const UserSearchBar = () => {
     }
   };
 
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   useEffect(() => {
     if (searchResults.length > 0) {
       const updatedIsFriend = searchResults.reduce((acc, user) => {
@@ -62,12 +73,16 @@ const UserSearchBar = () => {
     <>
       <NavbarDash />
       <div className="user-search-container">
-        <div className="user-search-bar">
+        <div className="search-bar">
+          <button className="back-button" onClick={handleBack}>
+            Înapoi
+          </button>
           <input
             type="text"
             placeholder="Caută utilizator după numele de utilizator"
             value={searchTerm}
             onChange={handleInputChange}
+            onKeyPress={handleKeyPress}
           />
           <button onClick={handleSearch}>Caută</button>
         </div>

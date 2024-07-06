@@ -32,25 +32,42 @@ const SearchPlayer = () => {
     }
   };
 
+  const handleBack = () => {
+    navigate(-1);
+  };
+
+  const handleInputChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   return (
     <>
       <NavbarDash />
       <div className="search-players-container">
-        <h1>Caută jucători</h1>
-        <input
-          type="text"
-          placeholder="Introdu numele jucătorului"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="search-input"
-          style={{ width: "300px", marginLeft: "10px" }}
-        />
-        <button onClick={handleSearch} className="search-button">
-          Caută
-        </button>
-        <div className="results-container">
-          {players &&
-            players.map((player) => (
+        <h3>Caută jucători de fotbal</h3>
+        <div className="search-bar">
+          <button className="back-button" onClick={handleBack}>
+            Înapoi
+          </button>
+          <input
+            type="text"
+            placeholder="Caută jucători după nume"
+            value={searchTerm}
+            onChange={handleInputChange}
+            onKeyPress={handleKeyPress}
+          />
+          <button onClick={handleSearch}>Caută</button>
+        </div>
+
+        {players.length > 0 && (
+          <div className="results-container">
+            {players.map((player) => (
               <div
                 key={player.idPlayer}
                 className="player-card"
@@ -71,7 +88,8 @@ const SearchPlayer = () => {
                 )}
               </div>
             ))}
-        </div>
+          </div>
+        )}
       </div>
     </>
   );
