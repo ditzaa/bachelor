@@ -12,7 +12,7 @@ const SearchClubs = () => {
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t=${searchTerm}`
+        `http://localhost:1234/api/search/clubs/${searchTerm}`
       );
       setTeams(response.data.teams);
     } catch (error) {
