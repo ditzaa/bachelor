@@ -150,3 +150,37 @@ app.get("/api/search/player/:name", async (req, res) => {
     res.status(500).json({ error: "Error fetching player stats" });
   }
 });
+
+app.get("/api/player-details/:id", async (req, res) => {
+  try {
+    const playerId = req.params.id;
+    const playerResponse = await axios.get(
+      `https://www.thesportsdb.com/api/v1/json/3/lookupplayer.php?id=${playerId}`
+    );
+    const honoursResponse = await axios.get(
+      `https://www.thesportsdb.com/api/v1/json/3/lookuphonours.php?id=${playerId}`
+    );
+    const milestonesResponse = await axios.get(
+      `https://www.thesportsdb.com/api/v1/json/3/lookupmilestones.php?id=${playerId}`
+    );
+    const formerTeamsResponse = await axios.get(
+      `https://www.thesportsdb.com/api/v1/json/3/lookupformerteams.php?id=${playerId}`
+    );
+    const contractsResponse = await axios.get(
+      `https://www.thesportsdb.com/api/v1/json/3/lookupcontracts.php?id=${playerId}`
+    );
+
+    const playerData = {
+      player: playerResponse.data.players[0],
+      honours: honoursResponse.data.honours || [],
+      milestones: milestonesResponse.data.milestones || [],
+      formerTeams: formerTeamsResponse.data.formerteams || [],
+      contracts: contractsResponse.data.contracts || [],
+    };
+
+    res.json(playerData);
+  } catch (error) {
+    console.error("Error fetching player details:", error);
+    res.status(500).json({ error: "Error fetching player details" });
+  }
+});

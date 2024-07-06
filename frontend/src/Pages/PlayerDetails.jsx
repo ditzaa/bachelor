@@ -39,29 +39,16 @@ const PlayerDetails = () => {
     const fetchPlayerData = async () => {
       try {
         const playerResponse = await axios.get(
-          `https://www.thesportsdb.com/api/v1/json/3/lookupplayer.php?id=${playerId}`
+          `http://localhost:1234/api/player-details/${playerId}`
         );
-        setPlayer(playerResponse.data.players[0]);
+        const { player, honours, milestones, formerTeams, contracts } =
+          playerResponse.data;
 
-        const honoursResponse = await axios.get(
-          `https://www.thesportsdb.com/api/v1/json/3/lookuphonours.php?id=${playerId}`
-        );
-        setHonours(honoursResponse.data.honours || []);
-
-        const milestonesResponse = await axios.get(
-          `https://www.thesportsdb.com/api/v1/json/3/lookupmilestones.php?id=${playerId}`
-        );
-        setMilestones(milestonesResponse.data.milestones || []);
-
-        const formerTeamsResponse = await axios.get(
-          `https://www.thesportsdb.com/api/v1/json/3/lookupformerteams.php?id=${playerId}`
-        );
-        setFormerTeams(formerTeamsResponse.data.formerteams || []);
-
-        const contractsResponse = await axios.get(
-          `https://www.thesportsdb.com/api/v1/json/3/lookupcontracts.php?id=${playerId}`
-        );
-        setContracts(contractsResponse.data.contracts || []);
+        setPlayer(player);
+        setHonours(honours);
+        setMilestones(milestones);
+        setFormerTeams(formerTeams);
+        setContracts(contracts);
 
         const playerStatistics = await fetchStatistics(transfermarktId);
         setStatistics(playerStatistics);
@@ -69,7 +56,6 @@ const PlayerDetails = () => {
         console.error("Error fetching player details:", error);
       }
     };
-
     fetchPlayerData();
   }, [playerId, transfermarktId]);
 
