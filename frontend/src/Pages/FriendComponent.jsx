@@ -4,7 +4,7 @@ import axios from "axios";
 import NavbarDash from "../Components/Dashboard/NavbarDash";
 import "./FriendComponent.css";
 
-const UserSearchBar = () => {
+const FriendComponent = () => {
   const { userId } = useParams();
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -16,7 +16,19 @@ const UserSearchBar = () => {
       const response = await axios.get(
         `http://localhost:1234/api/user/search?username=${searchTerm}`
       );
-      setSearchResults(response.data);
+      const results = response.data;
+      setSearchResults(results);
+
+      // Check friendship status for each result
+      results.forEach(async (user) => {
+        const friendshipResponse = await axios.get(
+          `http://localhost:1234/api/friend/check-friendship/${userId}/${user.id}`
+        );
+        setIsFriend((prevState) => ({
+          ...prevState,
+          [user.id]: friendshipResponse.data.isFriend,
+        }));
+      });
     } catch (error) {
       console.error("Error searching users:", error);
     }
@@ -55,19 +67,31 @@ const UserSearchBar = () => {
     }
   };
 
+  const handleRemoveFriend = async (friendId) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.delete(
+        `http://localhost:1234/api/friend/remove/${userId}/${friendId}`,
+        {
+          headers: {
+            "x-access-token": token,
+          },
+        }
+      );
+      if (response.data.message === "Friend removed successfully") {
+        setIsFriend({
+          ...isFriend,
+          [friendId]: false,
+        });
+      }
+    } catch (error) {
+      console.error("Error removing friend:", error);
+    }
+  };
+
   const handleBack = () => {
     navigate(-1);
   };
-
-  useEffect(() => {
-    if (searchResults.length > 0) {
-      const updatedIsFriend = searchResults.reduce((acc, user) => {
-        acc[user.id] = user.isFriend; // Assuming 'isFriend' property exists in search results
-        return acc;
-      }, {});
-      setIsFriend(updatedIsFriend);
-    }
-  }, [searchResults]);
 
   return (
     <>
@@ -107,7 +131,11 @@ const UserSearchBar = () => {
                   className={`add-friend-button ${
                     isFriend[user.id] ? "remove-friend" : ""
                   }`}
-                  onClick={() => handleAddFriend(user.id)}
+                  onClick={() =>
+                    isFriend[user.id]
+                      ? handleRemoveFriend(user.id)
+                      : handleAddFriend(user.id)
+                  }
                 >
                   {isFriend[user.id] ? "Remove Friend" : "Add Friend"}
                 </button>
@@ -120,4 +148,4 @@ const UserSearchBar = () => {
   );
 };
 
-export default UserSearchBar;
+export default FriendComponent;

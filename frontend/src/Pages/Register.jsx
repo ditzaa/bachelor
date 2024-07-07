@@ -15,6 +15,7 @@ import "./Register.css";
 const Register = () => {
   const navigate = useNavigate();
   const [selected, setSelected] = useState("");
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -65,8 +66,10 @@ const Register = () => {
     axios
       .post("http://localhost:1234/api/user/register", formData)
       .then((response) => {
-        toast.success("Contul a fost creat cu succes!");
-        navigate("/login");
+        setShowSuccessMessage(true); // Afiseaza mesajul de succes
+        setTimeout(() => {
+          navigate("/login"); // Redirecteaza la pagina de login dupa 3 secunde
+        }, 3000);
       })
       .catch((error) => {
         if (
@@ -187,6 +190,20 @@ const Register = () => {
               Creează cont
             </button>
           </form>
+
+          {/* Mesajul de succes */}
+          {showSuccessMessage && (
+            <p
+              style={{
+                textAlign: "center",
+                marginTop: "10px",
+                color: "white",
+                fontWeight: "100",
+              }}
+            >
+              Contul a fost creat cu succes!
+            </p>
+          )}
         </div>
       </div>
     </>

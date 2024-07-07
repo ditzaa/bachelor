@@ -10,7 +10,7 @@ module.exports = (database) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      unique: false,
     },
     idTheSportsDB: {
       type: DataTypes.INTEGER,

@@ -52,12 +52,18 @@ const PlayerDetails = () => {
 
         const playerStatistics = await fetchStatistics(transfermarktId);
         setStatistics(playerStatistics);
+
+        // Verifică dacă jucătorul este deja în lista de favorite pentru utilizatorul curent
+        const favResponse = await axios.get(
+          `http://localhost:1234/api/player/favorites/${userId}/${transfermarktId}`
+        );
+        setIsFavorite(favResponse.data.isFavorite);
       } catch (error) {
         console.error("Error fetching player details:", error);
       }
     };
     fetchPlayerData();
-  }, [playerId, transfermarktId]);
+  }, [playerId, transfermarktId, userId]);
 
   const toggleFavorite = async () => {
     try {
