@@ -7,16 +7,23 @@ import { useNavigate } from "react-router-dom";
 const SearchClubs = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [teams, setTeams] = useState([]);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSearch = async () => {
     try {
+      setError(""); // Reset error message
       const response = await axios.get(
         `http://localhost:1234/api/search/clubs/${searchTerm}`
       );
       setTeams(response.data.teams);
     } catch (error) {
-      console.error("Error fetching teams:", error);
+      if (error.response && error.response.status === 404) {
+        setError("Clubul nu a fost găsit!");
+      } else {
+        setError("A apărut o eroare la căutarea clubului.");
+      }
+      setTeams([]);
     }
   };
 
@@ -64,6 +71,8 @@ const SearchClubs = () => {
           />
           <button onClick={handleSearch}>Caută</button>
         </div>
+
+        {error && <div className="error-message">{error}</div>}
 
         {teams.length > 0 && (
           <div className="search-results">

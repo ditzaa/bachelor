@@ -14,10 +14,11 @@ import List from "@mui/material/List";
 import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
 import { useState } from "react";
-
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 const NavbarDash = () => {
+  const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState(false);
   const menuOptions = [
     {
@@ -30,6 +31,18 @@ const NavbarDash = () => {
     },
   ];
 
+  const handleLogout = () => {
+    axios
+      .post("http://localhost:1234/api/user/logout")
+      .then((response) => {
+        localStorage.removeItem("isLoggedIn");
+        navigate("/login");
+      })
+      .catch((error) => {
+        console.error("Error logging out:", error);
+      });
+  };
+
   return (
     <nav className="navbar-dash">
       <div className="nav-logo-container">
@@ -39,9 +52,9 @@ const NavbarDash = () => {
         <Link to="/dashboard">Acasă</Link>
         <a href="">Despre</a>
         <a href="">Contact</a>
-        <Link to="/login">
-          <button className="primary-button">Delogare</button>
-        </Link>
+        <button className="logout-button" onClick={handleLogout}>
+          Delogare
+        </button>
       </div>
       <div className="navbar-menu-container">
         <HiOutlineBars3 onClick={() => setOpenMenu(true)}></HiOutlineBars3>

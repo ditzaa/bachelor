@@ -1,18 +1,20 @@
-import "./Register.css";
+import React, { useState } from "react";
+import axios from "axios";
 import Navbar from "../Components/Home/Navbar";
 import BannerBackground from "../assets/home-banner-background.png";
-import { FaUser, FaLock, FaRegBuilding } from "react-icons/fa";
+import { FaUser, FaLock } from "react-icons/fa";
 import { AiOutlineTeam } from "react-icons/ai";
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { IoIosMail } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import ReactFlagsSelect from "react-flags-select";
 import Dropdown from "../Components/LoginForm/Dropdown";
-import { IoIosMail } from "react-icons/io";
-import axios from "axios";
+import "./Register.css";
 
 const Register = () => {
   const navigate = useNavigate();
-  const [selected, isSelected] = useState("");
+  const [selected, setSelected] = useState("");
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -33,24 +35,58 @@ const Register = () => {
     }));
   };
 
+  const validateEmail = (email) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    const { firstName, lastName, email, username, password, organisation } =
+      formData;
+
+    if (
+      !firstName ||
+      !lastName ||
+      !email ||
+      !username ||
+      !password ||
+      !organisation
+    ) {
+      toast.error("Toate câmpurile sunt obligatorii!");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      toast.error("Adresa de email este invalidă!");
+      return;
+    }
+
     axios
       .post("http://localhost:1234/api/user/register", formData)
       .then((response) => {
-        alert("Account created succesfuly!");
+        toast.success("Contul a fost creat cu succes!");
         navigate("/login");
-        console.log(response.data);
       })
       .catch((error) => {
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.error
+        ) {
+          toast.error(error.response.data.error);
+        } else {
+          toast.error("A apărut o eroare la înregistrare!");
+        }
         console.error("Error registering user:", error);
       });
   };
 
   return (
     <>
+      <ToastContainer />
       <div className="navbar">
-        <Navbar></Navbar>
+        <Navbar />
       </div>
 
       <div className="home-banner-container">
@@ -62,7 +98,7 @@ const Register = () => {
       <div className="register-container">
         <div className="wrapper-register">
           <h1>Înregistrare</h1>
-          <form action="" onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <div className="input-box">
               <input
                 type="text"
@@ -77,80 +113,76 @@ const Register = () => {
             <div className="input-box">
               <input
                 type="text"
-                placeholder="Nume de familie"
-                required
                 name="lastName"
+                placeholder="Nume de familie"
                 value={formData.lastName}
                 onChange={handleChange}
+                required
               />
               <FaUser className="icon" />
             </div>
             <div className="input-box">
               <input
-                type="text"
-                placeholder="Email"
-                required
+                type="email"
                 name="email"
+                placeholder="Email"
                 value={formData.email}
                 onChange={handleChange}
+                required
               />
               <IoIosMail className="icon" />
             </div>
             <div className="input-box">
               <input
                 type="text"
-                placeholder="Nume de utilizator"
-                required
                 name="username"
+                placeholder="Nume de utilizator"
                 value={formData.username}
                 onChange={handleChange}
+                required
               />
               <FaUser className="icon" />
             </div>
             <div className="input-box">
               <input
                 type="password"
-                placeholder="Parola"
-                required
                 name="password"
+                placeholder="Parola"
                 value={formData.password}
                 onChange={handleChange}
+                required
               />
               <FaLock className="icon" />
             </div>
-
             <div>
               <ReactFlagsSelect
-                className=" dropdown-country"
+                className="dropdown-country"
                 selected={selected}
                 onSelect={(code) => {
-                  isSelected(code);
+                  setSelected(code);
                   setFormData({ ...formData, country: code });
                 }}
               />
             </div>
-
-            <div className="input-box">
+            <div className="input-box dropdown-box">
               <Dropdown
                 value={formData.role}
                 onChange={(e) =>
                   setFormData({ ...formData, role: e.target.value })
                 }
-              ></Dropdown>
+              />
             </div>
-
             <div className="input-box">
               <input
                 type="text"
-                placeholder="Club / Companie"
-                required
                 name="organisation"
+                placeholder="Club / Companie"
                 value={formData.organisation}
                 onChange={handleChange}
+                required
               />
               <AiOutlineTeam className="icon" />
             </div>
-
             <button className="button-login" type="submit">
               Creează cont
             </button>

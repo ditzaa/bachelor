@@ -11,6 +11,10 @@ const ClubDetails = () => {
   const [players, setPlayers] = useState([]);
   const navigate = useNavigate();
 
+  const handleBack = () => {
+    navigate(-1);
+  };
+
   useEffect(() => {
     const fetchClubDetails = async () => {
       try {
@@ -110,9 +114,11 @@ const ClubDetails = () => {
           </div>
 
           <div className="button-container">
-            <button className="back-button">Back</button>
+            <button className="back-button" onClick={handleBack}>
+              Înapoi
+            </button>
             <button onClick={handlePlayersList} className="players-button">
-              <FaUsers /> View Players
+              <FaUsers /> Vezi jucătorii
             </button>
           </div>
         </div>

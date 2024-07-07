@@ -63,6 +63,12 @@
   height: auto;
 }
 
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
 @media (max-width: 768px) {
   .search-bar {
     width: 100%;

@@ -73,6 +73,7 @@ const UserSearchBar = () => {
     <>
       <NavbarDash />
       <div className="user-search-container">
+        <h3>Adaugă prieteni</h3>
         <div className="search-bar">
           <button className="back-button" onClick={handleBack}>
             Înapoi

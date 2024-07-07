@@ -9,5 +9,6 @@ router.post("/login", userController.loginUser);
 router.get("/login", userController.getUser);
 router.get("/isUserAuth", userController.verifyJWT, userController.isUserAuth);
 router.get("/search", userController.searchUsersByName);
+router.post("/logout", userController.logoutUser);
 
 module.exports = router;

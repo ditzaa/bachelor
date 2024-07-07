@@ -144,6 +144,11 @@ app.get("/api/search/player/:name", async (req, res) => {
     const response = await axios.get(
       `https://www.thesportsdb.com/api/v1/json/3/searchplayers.php?p=${playerName}`
     );
+
+    if (!response.data.player || response.data.player.length === 0) {
+      return res.status(404).json({ error: "Jucătorul nu a fost găsit!" });
+    }
+
     res.json(response.data);
   } catch (error) {
     console.error("Error searching player:", error);
@@ -191,6 +196,11 @@ app.get("/api/search/clubs/:name", async (req, res) => {
     const response = await axios.get(
       `https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t=${clubName}`
     );
+
+    if (!response.data.teams || response.data.teams.length === 0) {
+      return res.status(404).json({ error: "Clubul nu a fost găsit!" });
+    }
+
     res.json(response.data);
   } catch (error) {
     console.error("Error searching clubs:", error);

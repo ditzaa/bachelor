@@ -7,16 +7,23 @@ import NavbarDash from "../Components/Dashboard/NavbarDash";
 const SearchPlayer = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [players, setPlayers] = useState([]);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSearch = async () => {
     try {
+      setError(""); // Reset error message
       const response = await axios.get(
         `http://localhost:1234/api/search/player/${searchTerm}`
       );
       setPlayers(response.data.player);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      if (error.response && error.response.status === 404) {
+        setError("Jucătorul nu a fost găsit!");
+      } else {
+        setError("A apărut o eroare la căutarea jucătorului.");
+      }
+      setPlayers([]);
     }
   };
 
@@ -64,6 +71,8 @@ const SearchPlayer = () => {
           />
           <button onClick={handleSearch}>Caută</button>
         </div>
+
+        {error && <div className="error-message">{error}</div>}
 
         {players.length > 0 && (
           <div className="results-container">

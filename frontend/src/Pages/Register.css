@@ -1,3 +1,4 @@
+/* Font import */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 
@@ -14,13 +15,12 @@
   justify-content: center;
   align-items: center;
   padding: 0;
-  margin-top: -60px;
+  margin-top: -40px;
 }
 
 .home-banner-container {
   position: relative;
   display: flex;
-  /* padding-top: 3rem; */
 }
 
 .navbar {
@@ -55,7 +55,7 @@
 .wrapper-register .input-box {
   position: relative;
   width: 100%;
-  height: 50px;
+  height: 45px;
   color: var(--text);
   margin: 30px 0;
 }
@@ -63,7 +63,7 @@
 .input-box input {
   width: 100%;
   height: 100%;
-  background: transparent;
+  background: white;
   border: none;
   outline: none;
   border: 2px solid rgba(255, 255, 255, 0.2);
@@ -86,27 +86,6 @@
   font-size: 16px;
 }
 
-.wrapper-register .remember-forgot {
-  display: flex;
-  justify-content: space-between;
-  font-size: 14.5px;
-  margin: -15px 0 15px;
-}
-
-.remember-forgot label input {
-  accent-color: white;
-  margin-right: 4px;
-}
-
-.remember-forgot a {
-  color: white;
-  text-decoration: none;
-}
-
-.remember-forgot a:hover {
-  text-decoration: underline;
-}
-
 .wrapper-register .button-login {
   width: 100%;
   height: 45px;
@@ -120,25 +99,7 @@
   font-weight: bold;
   margin-top: 10px;
   border: 2px solid black;
-  padding-left: 0px;
-  padding-right: 0px;
-}
-
-.wrapper-register .register-link {
-  font-size: 14.5px;
-  text-align: center;
-  margin-top: 20px 0 15px;
-  padding-top: 20px;
-}
-
-.register-link p a {
-  color: white;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.register-link p a:hover {
-  text-decoration: underline;
+  padding: 0 10px;
 }
 
 .dropdown-country {
@@ -149,18 +110,22 @@
   border-radius: 40px;
 }
 
-/* responsive-design */
-select {
-  width: 100%;
-  height: 50px;
-  background: transparent;
+.dropdown-box {
+  background-color: white;
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 40px;
+  padding: 10px 15px;
+  margin-bottom: 30px;
+}
+
+.dropdown-box select {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
   font-size: 16px;
   color: var(--text);
-  background-color: var(--background);
-  outline: none;
-  padding-left: 15px;
+  padding-left: 0;
 }
 
 @media screen and (max-width: 600px) {
@@ -183,17 +148,6 @@ select {
 
   .wrapper-register button {
     font-size: 14px;
-    padding-right: 0px;
-    padding-right: 0px;
-  }
-
-  .remember-forgot {
-    flex-direction: column;
-    margin: auto;
-  }
-
-  .remember-forgot label {
-    margin-bottom: 5px;
   }
 }
 

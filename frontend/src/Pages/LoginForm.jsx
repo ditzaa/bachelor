@@ -31,19 +31,24 @@ const LoginForm = () => {
     axios
       .post("http://localhost:1234/api/user/login", loginData)
       .then((response) => {
-        navigate("/dashboard", { replace: true });
-        localStorage.setItem("token", response.data.token);
-        const userId = response.data.result.id;
-        localStorage.setItem("userID", userId);
+        if (response.data.auth) {
+          navigate("/dashboard", { replace: true });
+          localStorage.setItem("token", response.data.token);
+          const userId = response.data.result.id;
+          localStorage.setItem("userID", userId);
+        } else {
+          setLoginStatus(response.data.error);
+        }
       })
       .catch((error) => {
         console.error("Error logging user: ", error);
+        setLoginStatus("Numele de utilizator și/sau parola nu sunt corecte.");
       });
   };
 
   useEffect(() => {
     axios.get("http://localhost:1234/api/user/login").then((response) => {
-      if (response.data.loggedIn == true) {
+      if (response.data.loggedIn === true) {
         navigate("/dashboard", { replace: true });
       }
     });
@@ -52,7 +57,7 @@ const LoginForm = () => {
   return (
     <>
       <div className="navbar">
-        <Navbar></Navbar>
+        <Navbar />
       </div>
 
       <div className="home-banner-container">
@@ -89,12 +94,13 @@ const LoginForm = () => {
 
             <div className="remember-forgot">
               <label>
-                {" "}
                 <input type="checkbox" />
                 Ține-mă minte
               </label>
               <a href="#">Ai uitat parola?</a>
             </div>
+
+            {loginStatus && <div className="error-message">{loginStatus}</div>}
 
             <button className="btn-login" type="submit">
               Logare
