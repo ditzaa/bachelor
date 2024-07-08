@@ -4,8 +4,9 @@ import axios from "axios";
 import { FaStar } from "react-icons/fa";
 import "./PlayerDetails.css";
 import NavbarDash from "../Components/Dashboard/NavbarDash";
+import PlayerReport from "../Components/PlayerReport"; // Importăm componenta PlayerReport
 
-const PlayerDetails = () => {
+const PlayerDetailsReport = () => {
   const { playerId, transfermarktId } = useParams();
   const [player, setPlayer] = useState(null);
   const [honours, setHonours] = useState([]);
@@ -15,6 +16,7 @@ const PlayerDetails = () => {
   const [statistics, setStatistics] = useState([]);
   const [injuries, setInjuries] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [showReport, setShowReport] = useState(false); // State pentru a controla vizibilitatea raportului
   const userId = localStorage.getItem("userID");
   const navigate = useNavigate();
 
@@ -105,6 +107,10 @@ const PlayerDetails = () => {
     navigate(`/player-videos/${playerId}`);
   };
 
+  const handleReportClick = () => {
+    setShowReport(true);
+  };
+
   if (!player) {
     return <div>Loading...</div>;
   }
@@ -122,7 +128,9 @@ const PlayerDetails = () => {
   return (
     <>
       <NavbarDash />
-      <div className="player-details-container">
+      <div
+        className={`player-details-container ${showReport ? "split-view" : ""}`}
+      >
         <div className="player-card-1">
           <h1>{player.strPlayer}</h1>
           <img
@@ -172,110 +180,117 @@ const PlayerDetails = () => {
           <button onClick={handleVideosClick} className="videos-button">
             Videoclipuri
           </button>
+          <button onClick={handleReportClick} className="report-button">
+            Generare Raport
+          </button>
         </div>
 
-        <div className="player-details-card">
-          <p className="description">
-            <strong>Descriere(EN):</strong> {player.strDescriptionEN}
-          </p>
+        {!showReport && (
+          <div className="player-details-card">
+            <p className="description">
+              <strong>Descriere(EN):</strong> {player.strDescriptionEN}
+            </p>
 
-          <h2>Premii</h2>
-          <ul className="no-bullets">
-            {honours.map((honour) => (
-              <li key={honour.id}>
-                {honour.strHonour} - {honour.strSeason}
-              </li>
-            ))}
-          </ul>
-
-          <h2>Realizări</h2>
-          <ul className="no-bullets">
-            {groupedMilestones.map((milestone, index) => (
-              <li key={index}>
-                <img
-                  src={milestone.strMilestoneLogo}
-                  alt={milestone.strMilestone}
-                  className="milestone-logo"
-                />
-                {milestone.strMilestone}{" "}
-                {milestone.count > 1 && `x${milestone.count}`}
-              </li>
-            ))}
-          </ul>
-
-          <h2>Statistici</h2>
-          <table className="statistics-table">
-            <thead>
-              <tr>
-                <th>Competiție</th>
-                <th>Sezon</th>
-                <th>Apariții</th>
-                <th>Goluri</th>
-                <th>Assist-uri</th>
-                <th>Cartonașe galbene</th>
-                <th>Minute jucate</th>
-              </tr>
-            </thead>
-            <tbody>
-              {statistics.map((stat, index) => (
-                <tr key={index}>
-                  <td>{stat.competitionName}</td>
-                  <td>{stat.seasonID}</td>
-                  <td>{stat.appearances || "-"}</td>
-                  <td>{stat.goals || "-"}</td>
-                  <td>{stat.assists || "-"}</td>
-                  <td>{stat.yellowCards || "-"}</td>
-                  <td>{stat.minutesPlayed || "-"}</td>
-                </tr>
+            <h2>Premii</h2>
+            <ul className="no-bullets">
+              {honours.map((honour) => (
+                <li key={honour.id}>
+                  {honour.strHonour} - {honour.strSeason}
+                </li>
               ))}
-            </tbody>
-          </table>
-          <h2>Accidentări</h2>
-          {injuries.length === 0 ? (
-            <p>Nu există accidentări înregistrate.</p>
-          ) : (
-            <table className="injuries-table">
+            </ul>
+
+            <h2>Realizări</h2>
+            <ul className="no-bullets">
+              {groupedMilestones.map((milestone, index) => (
+                <li key={index}>
+                  <img
+                    src={milestone.strMilestoneLogo}
+                    alt={milestone.strMilestone}
+                    className="milestone-logo"
+                  />
+                  {milestone.strMilestone}{" "}
+                  {milestone.count > 1 && `x${milestone.count}`}
+                </li>
+              ))}
+            </ul>
+
+            <h2>Statistici</h2>
+            <table className="statistics-table">
               <thead>
                 <tr>
+                  <th>Competiție</th>
                   <th>Sezon</th>
-                  <th>Accidentare</th>
-                  <th>De la</th>
-                  <th>Până la</th>
-                  <th>Zile</th>
-                  <th>Meciuri ratate</th>
+                  <th>Apariții</th>
+                  <th>Goluri</th>
+                  <th>Assist-uri</th>
+                  <th>Cartonașe galbene</th>
+                  <th>Minute jucate</th>
                 </tr>
               </thead>
               <tbody>
-                {injuries.map((injury, index) => (
+                {statistics.map((stat, index) => (
                   <tr key={index}>
-                    <td>{injury.season}</td>
-                    <td>{injury.injury}</td>
-                    <td>{injury.from}</td>
-                    <td>{injury.until}</td>
-                    <td>{injury.days}</td>
-                    <td>{injury.gamesMissed || "N/A"}</td>
+                    <td>{stat.competitionName}</td>
+                    <td>{stat.seasonID}</td>
+                    <td>{stat.appearances || "-"}</td>
+                    <td>{stat.goals || "-"}</td>
+                    <td>{stat.assists || "-"}</td>
+                    <td>{stat.yellowCards || "-"}</td>
+                    <td>{stat.minutesPlayed || "-"}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
-          )}
-          <h2>Foste echipe</h2>
-          <ul className="no-bullets">
-            {formerTeams.map((team) => (
-              <li key={team.idFormerTeam}>
-                <img
-                  src={team.strBadge}
-                  alt={team.strFormerTeam}
-                  className="team-badge"
-                />
-                {team.strFormerTeam} ({team.strJoined} - {team.strDeparted})
-              </li>
-            ))}
-          </ul>
-        </div>
+            <h2>Accidentări</h2>
+            {injuries.length === 0 ? (
+              <p>Nu există accidentări înregistrate.</p>
+            ) : (
+              <table className="injuries-table">
+                <thead>
+                  <tr>
+                    <th>Sezon</th>
+                    <th>Accidentare</th>
+                    <th>De la</th>
+                    <th>Până la</th>
+                    <th>Zile</th>
+                    <th>Meciuri ratate</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {injuries.map((injury, index) => (
+                    <tr key={index}>
+                      <td>{injury.season}</td>
+                      <td>{injury.injury}</td>
+                      <td>{injury.from}</td>
+                      <td>{injury.until}</td>
+                      <td>{injury.days}</td>
+                      <td>{injury.gamesMissed || "N/A"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+            <h2>Foste echipe</h2>
+            <ul className="no-bullets">
+              {formerTeams.map((team) => (
+                <li key={team.idFormerTeam}>
+                  <img
+                    src={team.strBadge}
+                    alt={team.strFormerTeam}
+                    className="team-badge"
+                  />
+                  {team.strFormerTeam} ({team.strJoined} - {team.strDeparted})
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {showReport && <PlayerReport player={player} />}
       </div>
     </>
   );
 };
 
-export default PlayerDetails;
+export default PlayerDetailsReport;

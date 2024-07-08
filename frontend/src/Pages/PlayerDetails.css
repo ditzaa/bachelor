@@ -3,7 +3,9 @@
   --background: #f8fafc;
   --primary: #4d76bc;
   --accent: #6d92d2;
+  --accent-hover: #5a7fbf; /* Accentuare la hover */
   --success: #28a745;
+  --text-hover: #333; /* Accentuare pentru butonul Înapoi */
 }
 
 .player-details-container {
@@ -68,15 +70,7 @@
 .favorite-button:hover,
 .videos-button:hover,
 .back-button:hover {
-  background-color: var(--accent);
-}
-
-.videos-button {
-  background-color: var(--success);
-}
-
-.videos-button:hover {
-  background-color: darken(var(--success), 10%);
+  background-color: var(--accent-hover);
 }
 
 .back-button {
@@ -84,13 +78,19 @@
 }
 
 .back-button:hover {
-  background-color: lighten(var(--text), 10%);
+  background-color: var(--text-hover);
 }
 
 .no-bullets {
   list-style: none;
   padding: 0;
   text-align: center;
+}
+
+.milestone-logo {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
 }
 
 .statistics-table {
@@ -144,4 +144,51 @@
     flex-direction: column;
     align-items: center;
   }
+}
+
+.player-details-card ul {
+  padding-left: 0;
+}
+
+.player-details-card li {
+  list-style: none;
+  margin: 10px 0;
+}
+
+.team-badge {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.player-details-card h2 {
+  margin-top: 20px;
+  font-size: 24px;
+  color: var(--primary);
+}
+
+.player-details-card table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.player-details-card table th,
+.player-details-card table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.player-details-card table th {
+  background-color: #f2f2f2;
+}
+
+.player-details-card table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.player-details-card table tr:hover {
+  background-color: #ddd;
 }

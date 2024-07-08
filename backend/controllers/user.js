@@ -117,12 +117,17 @@ const controller = {
   searchUsersByName: async (req, res) => {
     try {
       const { username } = req.query;
+      const userId = req.params.userId;
+      console.log("ID USER CUR: " + userId);
 
       const users = await UserDb.findAll({
         where: {
           username: {
             [Op.like]: `%${username}%`,
           },
+          // id: {
+          //   [Op.ne]: userId,
+          // },
         },
         attributes: [
           "id",

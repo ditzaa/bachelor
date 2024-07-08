@@ -220,3 +220,16 @@ app.get("/api/player-details-favorites/:id", async (req, res) => {
     res.status(500).json({ error: "Error fetching player details" });
   }
 });
+
+app.get("/api/player/:id/injuries", async (req, res) => {
+  const playerId = req.params.id;
+  const pageNumber = req.query.page || 1;
+  const apiUrl = `https://transfermarkt-api.fly.dev/players/${playerId}/injuries?page_number=${pageNumber}`;
+
+  try {
+    const response = await axios.get(apiUrl);
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch injury data" });
+  }
+});
