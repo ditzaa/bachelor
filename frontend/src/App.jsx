@@ -10,6 +10,7 @@ import HomePg from "./Pages/HomePg";
 import SearchClubs from "./Pages/SearchClubs";
 import ClubDetails from "./Pages/ClubDetails";
 import FavoritePlayersList from "./Pages/FavoritePlayersList";
+import PlayerDetailsReport from "./Pages/PlayerDetailsReport";
 import {
   Route,
   createBrowserRouter,
@@ -34,6 +35,10 @@ const router = createBrowserRouter(
       />
       <Route path="/friends/:userId" element={<FriendComponent />} />
       <Route path="/players-list" element={<FavoritePlayersList />} />
+      <Route
+        path="/player-details-report/:playerId/:transfermarktId"
+        element={<PlayerDetailsReport />}
+      />
     </Route>
   )
 );

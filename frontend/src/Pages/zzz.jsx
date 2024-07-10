@@ -176,12 +176,6 @@ const PlayerDetailsReport = () => {
               <strong>Valoare de piata:</strong> {player.strMarketValue}
             </p>
           </div>
-          <button
-            onClick={toggleReport}
-            className="create-report-button-report"
-          >
-            {isReportOpen ? "Închide Raportul" : "Creează Raport"}
-          </button>
         </div>
         <div className="player-details-card-report">
           <h2>Statistici</h2>
@@ -254,6 +248,9 @@ const PlayerDetailsReport = () => {
             ))}
           </ul>
         </div>
+        <button onClick={toggleReport} className="create-report-button-report">
+          {isReportOpen ? "Închide Raportul" : "Creează Raport"}
+        </button>
       </div>
       <div className="report-container-report">
         <div className="report-card-report">
@@ -262,8 +259,6 @@ const PlayerDetailsReport = () => {
             placeholder="Scrie raportul aici..."
             value={reportText}
             onChange={(e) => setReportText(e.target.value)}
-            rows="10"
-            cols="50"
           ></textarea>
           <div className="button-container-report">
             <button
