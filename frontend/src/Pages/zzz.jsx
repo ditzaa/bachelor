@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaStar } from "react-icons/fa";
-import "./PlayerDetailsReport.css";
+import "./PlayerDetails.css";
 import NavbarDash from "../Components/Dashboard/NavbarDash";
 
-const PlayerDetailsReport = () => {
+const PlayerDetails = () => {
   const { playerId, transfermarktId } = useParams();
   const [player, setPlayer] = useState(null);
   const [honours, setHonours] = useState([]);
@@ -15,12 +15,8 @@ const PlayerDetailsReport = () => {
   const [statistics, setStatistics] = useState([]);
   const [injuries, setInjuries] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [reportText, setReportText] = useState("");
-  const [showReport, setShowReport] = useState(false);
   const userId = localStorage.getItem("userID");
-
   const navigate = useNavigate();
-  const [isReportOpen, setIsReportOpen] = useState(false);
 
   const fetchStatistics = async (transfermarktId) => {
     try {
@@ -109,20 +105,6 @@ const PlayerDetailsReport = () => {
     navigate(`/player-videos/${playerId}`);
   };
 
-  const handleCreateReport = () => {
-    setShowReport(true);
-  };
-
-  const handleSaveReport = () => {
-    // Logic to save the report
-    console.log("Report saved:", reportText);
-  };
-
-  const handleSavePDF = () => {
-    // Logic to save the report as PDF
-    console.log("Report saved as PDF:", reportText);
-  };
-
   if (!player) {
     return <div>Loading...</div>;
   }
@@ -137,34 +119,35 @@ const PlayerDetailsReport = () => {
     return acc;
   }, []);
 
-  const toggleReport = () => {
-    setIsReportOpen(!isReportOpen);
-  };
-
   return (
-    <div className={`container-report ${isReportOpen ? "report-open" : ""}`}>
-      <div className="players-container-report">
-        <div className="player-card-report">
+    <>
+      <NavbarDash />
+      <div className="player-details-container">
+        <div className="player-card-1">
           <h1>{player.strPlayer}</h1>
-          <img src={player.strCutout} alt={player.strPlayer} />
-          <div className="player-info-report">
+          <img
+            src={player.strCutout || player.strThumb}
+            alt={player.strPlayer}
+            className="player-image"
+          />
+          <div className="player-info">
             <p>
               <strong>Echipă:</strong> {player.strTeam}
             </p>
             <p>
-              <strong>Pozitie:</strong> {player.strPosition}
+              <strong>Poziție:</strong> {player.strPosition}
             </p>
             <p>
-              <strong>Locul nasterii:</strong> {player.strBirthLocation}
+              <strong>Locul nașterii:</strong> {player.strBirthLocation}
             </p>
             <p>
-              <strong>Data nasterii:</strong> {player.dateBorn}
+              <strong>Data nașterii:</strong> {player.dateBorn}
             </p>
             <p>
               <strong>Nationalitate:</strong> {player.strNationality}
             </p>
             <p>
-              <strong>Inaltime:</strong> {player.strHeight}
+              <strong>Înălțime:</strong> {player.strHeight}
             </p>
             <p>
               <strong>Greutate:</strong> {player.strWeight}
@@ -173,21 +156,63 @@ const PlayerDetailsReport = () => {
               <strong>Număr echipă:</strong> {player.strNumber}
             </p>
             <p>
-              <strong>Valoare de piata:</strong> {player.strMarketValue}
+              <strong>Valoare de piață:</strong> {player.strSigning || "N/A"}
             </p>
           </div>
         </div>
-        <div className="player-details-card-report">
+
+        <div className="button-container">
+          <button onClick={() => navigate(-1)} className="back-button">
+            Înapoi
+          </button>
+          <button onClick={toggleFavorite} className="favorite-button">
+            <FaStar color={isFavorite ? "gold" : "grey"} />
+            {isFavorite ? " Șterge din favorite" : " Adaugă la favorite"}
+          </button>
+          <button onClick={handleVideosClick} className="videos-button">
+            Videoclipuri
+          </button>
+        </div>
+
+        <div className="player-details-card">
+          <p className="description">
+            <strong>Descriere(EN):</strong> {player.strDescriptionEN}
+          </p>
+
+          <h2>Premii</h2>
+          <ul className="no-bullets">
+            {honours.map((honour) => (
+              <li key={honour.id}>
+                {honour.strHonour} - {honour.strSeason}
+              </li>
+            ))}
+          </ul>
+
+          <h2>Realizări</h2>
+          <ul className="no-bullets">
+            {groupedMilestones.map((milestone, index) => (
+              <li key={index}>
+                <img
+                  src={milestone.strMilestoneLogo}
+                  alt={milestone.strMilestone}
+                  className="milestone-logo"
+                />
+                {milestone.strMilestone}{" "}
+                {milestone.count > 1 && `x${milestone.count}`}
+              </li>
+            ))}
+          </ul>
+
           <h2>Statistici</h2>
-          <table className="statistics-table-report">
+          <table className="statistics-table">
             <thead>
               <tr>
-                <th>Competitie</th>
+                <th>Competiție</th>
                 <th>Sezon</th>
-                <th>Aparitii</th>
+                <th>Apariții</th>
                 <th>Goluri</th>
-                <th>Pase de gol</th>
-                <th>Cartonase galbene</th>
+                <th>Assist-uri</th>
+                <th>Cartonașe galbene</th>
                 <th>Minute jucate</th>
               </tr>
             </thead>
@@ -205,17 +230,17 @@ const PlayerDetailsReport = () => {
               ))}
             </tbody>
           </table>
-          <h2>Accidentari</h2>
+          <h2>Accidentări</h2>
           {injuries.length === 0 ? (
-            <p>Nu exista accidentari inregistrate.</p>
+            <p>Nu există accidentări înregistrate.</p>
           ) : (
-            <table className="injuries-table-report">
+            <table className="injuries-table">
               <thead>
                 <tr>
                   <th>Sezon</th>
                   <th>Accidentare</th>
                   <th>De la</th>
-                  <th>Pana la</th>
+                  <th>Până la</th>
                   <th>Zile</th>
                   <th>Meciuri ratate</th>
                 </tr>
@@ -235,46 +260,22 @@ const PlayerDetailsReport = () => {
             </table>
           )}
           <h2>Foste echipe</h2>
-          <ul className="no-bullets-report">
+          <ul className="no-bullets">
             {formerTeams.map((team) => (
               <li key={team.idFormerTeam}>
                 <img
                   src={team.strBadge}
                   alt={team.strFormerTeam}
-                  className="team-badge-report"
+                  className="team-badge"
                 />
                 {team.strFormerTeam} ({team.strJoined} - {team.strDeparted})
               </li>
             ))}
           </ul>
         </div>
-        <button onClick={toggleReport} className="create-report-button-report">
-          {isReportOpen ? "Închide Raportul" : "Creează Raport"}
-        </button>
       </div>
-      <div className="report-container-report">
-        <div className="report-card-report">
-          <h2>Raport pentru {player.strPlayer}</h2>
-          <textarea
-            placeholder="Scrie raportul aici..."
-            value={reportText}
-            onChange={(e) => setReportText(e.target.value)}
-          ></textarea>
-          <div className="button-container-report">
-            <button
-              className="save-report-button-report"
-              onClick={handleSaveReport}
-            >
-              Salveaza Raportul
-            </button>
-            <button className="save-pdf-button-report" onClick={handleSavePDF}>
-              Salveaza ca PDF
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 
-export default PlayerDetailsReport;
+export default PlayerDetails;

@@ -125,9 +125,6 @@ const controller = {
           username: {
             [Op.like]: `%${username}%`,
           },
-          // id: {
-          //   [Op.ne]: userId,
-          // },
         },
         attributes: [
           "id",

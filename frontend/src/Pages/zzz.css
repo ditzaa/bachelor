@@ -2,7 +2,7 @@
 .container-report {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* Centrat inițial */
+  justify-content: center;
   padding: 20px;
   transition: justify-content 0.3s ease;
 }
@@ -11,14 +11,15 @@
 .players-container-report {
   display: flex;
   flex-direction: column;
-  width: 100%; /* Inițial 100%, va fi 48% când raportul este deschis */
+  width: 100%;
   transition: width 0.3s ease;
+  align-items: center; /* Centrăm conținutul */
 }
 
 /* Container pentru cardul de raport */
 .report-container-report {
   width: 48%;
-  display: none; /* Ascuns inițial */
+  display: none;
   flex-direction: column;
   align-items: center;
   transition: display 0.3s ease;
@@ -26,23 +27,27 @@
 
 /* Cardurile individuale */
 .player-card-report,
-.report-card-report {
+.report-card-report,
+.player-details-card-report {
   background: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin-bottom: 20px;
   text-align: center;
+  width: 100%;
+  max-width: 600px;
 }
 
 .player-card-report img {
-  width: 80%; /* Ajustarea dimensiunii imaginii jucătorului */
+  width: 60%; /* Diminuăm dimensiunea imaginii jucătorului */
   height: auto;
   border-radius: 10px;
+  margin: 0 auto; /* Centram imaginea */
 }
 
 .player-info-report {
-  text-align: left;
+  text-align: center; /* Centrăm textul */
 }
 
 .player-info-report p {
@@ -80,6 +85,10 @@
   width: 30px;
   height: 30px;
   margin-right: 10px;
+}
+
+li {
+  text-align: center;
 }
 
 /* Stiluri pentru tabele */
@@ -122,6 +131,10 @@
   margin: 20px 0;
 }
 
+#fixed-report {
+  position: fixed;
+}
+
 @media (max-width: 768px) {
   .container-report {
     flex-direction: column;
@@ -141,7 +154,7 @@
 
 /* Stiluri pentru atunci când raportul este deschis */
 .container-report.report-open {
-  justify-content: space-between; /* Împărțit în două părți când raportul este deschis */
+  justify-content: space-between;
 }
 
 .container-report.report-open .players-container-report {

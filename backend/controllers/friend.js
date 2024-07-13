@@ -22,7 +22,6 @@ const controller = {
           .json({ error: "You cannot add yourself as a friend" });
       }
 
-      // Check if friendship already exists (optional)
       const existingFriendship = await FriendDb.findOne({
         where: {
           userID: userId,
