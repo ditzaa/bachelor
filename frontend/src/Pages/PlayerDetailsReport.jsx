@@ -20,7 +20,11 @@ const PlayerDetailsReport = () => {
   const [statisticsText, setStatisticsText] = useState("");
   const [injuriesText, setinjuriesText] = useState("");
   const [showReport, setShowReport] = useState(false);
+  const [report, setReport] = useState(0);
   const userId = localStorage.getItem("userID");
+  const rating = localStorage.getItem("rating");
+
+  //const rating = 0;
 
   const navigate = useNavigate();
   const [isReportOpen, setIsReportOpen] = useState(false);
@@ -116,14 +120,56 @@ const PlayerDetailsReport = () => {
     setShowReport(true);
   };
 
-  const handleSaveReport = () => {
-    // Logic to save the report
-    console.log("Report saved:", reportText);
+  const handleSaveReport = async () => {
+    const data = {
+      userId,
+      playerName: player.strPlayer,
+      transfermarktId,
+      idTheSportsDB: playerId,
+      generalText,
+      statisticsText,
+      injuriesText,
+      rating: localStorage.getItem("playerRating"),
+    };
+    console.log(data);
+
+    try {
+      await axios.post("http://localhost:1234/api/report/save-report", data);
+      console.log("Report saved successfully");
+    } catch (error) {
+      console.error("Error saving report:", error);
+    }
   };
 
-  const handleSavePDF = () => {
-    // Logic to save the report as PDF
-    console.log("Report saved as PDF:", reportText);
+  const handleSavePDF = async () => {
+    try {
+      console.log("save pdf");
+      const reportData = {
+        name: player.strPlayer,
+        imageUrl: player.strCutout, // Adăugăm URL-ul imaginii
+        textGeneral: generalText,
+        textStatistici: statisticsText,
+        textInjuries: injuriesText,
+        rating: localStorage.getItem("playerRating"),
+      };
+      console.log(reportData);
+      const response = await axios.post(
+        "http://localhost:1234/api/report/save-pdf",
+        reportData,
+        {
+          responseType: "blob",
+        }
+      );
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `${player.strPlayer}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      console.error("Error saving PDF:", error);
+    }
   };
 
   if (!player) {
@@ -182,6 +228,12 @@ const PlayerDetailsReport = () => {
               </p>
             </div>
             <button
+              onClick={() => navigate(-1)}
+              className="create-report-button-report"
+            >
+              Înapoi
+            </button>
+            <button
               onClick={toggleReport}
               className="create-report-button-report"
             >
@@ -194,8 +246,8 @@ const PlayerDetailsReport = () => {
             </p>
             <h2>Premii</h2>
             <ul className="no-bullets">
-              {honours.map((honour) => (
-                <li key={honour.id}>
+              {honours.map((honour, index) => (
+                <li key={`${honour.id}-${index}`}>
                   {honour.strHonour} - {honour.strSeason}
                 </li>
               ))}
@@ -204,7 +256,7 @@ const PlayerDetailsReport = () => {
             <h2>Realizări</h2>
             <ul className="no-bullets">
               {groupedMilestones.map((milestone, index) => (
-                <li key={index}>
+                <li key={`${milestone.strMilestone}-${index}`}>
                   <img
                     src={milestone.strMilestoneLogo}
                     alt={milestone.strMilestone}
@@ -273,8 +325,8 @@ const PlayerDetailsReport = () => {
             )}
             <h2>Foste echipe</h2>
             <ul className="no-bullets-report">
-              {formerTeams.map((team) => (
-                <li key={team.idFormerTeam}>
+              {formerTeams.map((team, index) => (
+                <li key={`${team.idFormerTeam}-${index}`}>
                   <img
                     src={team.strBadge}
                     alt={team.strFormerTeam}
@@ -313,7 +365,11 @@ const PlayerDetailsReport = () => {
               rows="10"
               cols="50"
             ></textarea>
-            <SliderComponent />
+            <SliderComponent
+              onChange={(rating) =>
+                localStorage.setItem("playerRating", rating)
+              }
+            />
             <div className="button-container-report">
               <button
                 className="save-report-button-report"

@@ -1,4 +1,4 @@
-const { PlayerDb } = require("../models");
+const { PlayerDb, FriendDb, UserDb } = require("../models");
 
 const { Op } = require("sequelize");
 
@@ -66,6 +66,44 @@ const controller = {
     } catch (error) {
       console.error("Error checking if player is favorite:", error);
       res.status(500).json({ error: "Error checking if player is favorite" });
+    }
+  },
+  getFriendsFavoritePlayers: async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const friends = await FriendDb.findAll({
+        where: {
+          userID: userId,
+        },
+      });
+
+      const friendsFavoritePlayers = await Promise.all(
+        friends.map(async (friend) => {
+          const favoritePlayers = await PlayerDb.findAll({
+            where: { userId: friend.friendID },
+          });
+
+          const friendDetails = await UserDb.findOne({
+            where: {
+              id: friend.friendID,
+            },
+          });
+          console.log(friendDetails.firstName);
+          return favoritePlayers.map((player) => ({
+            ...player.dataValues,
+            friendName: `${friendDetails.firstName} ${friendDetails.lastName}`,
+          }));
+        })
+      );
+
+      const flattenedFavorites = [].concat(...friendsFavoritePlayers);
+      //console.log(flattenedFavorites);
+      res.status(200).json(flattenedFavorites);
+    } catch (error) {
+      console.error("Error fetching friends' favorite players:", error);
+      res
+        .status(500)
+        .json({ error: "Error fetching friends' favorite players" });
     }
   },
 };

@@ -12,11 +12,12 @@ const SearchPlayer = () => {
 
   const handleSearch = async () => {
     try {
-      setError(""); // Reset error message
+      setError("");
       const response = await axios.get(
         `http://localhost:1234/api/search/player/${searchTerm}`
       );
       setPlayers(response.data.player);
+      console.log(players);
     } catch (error) {
       if (error.response && error.response.status === 404) {
         setError("Jucătorul nu a fost găsit!");

@@ -17,6 +17,7 @@ import {
   createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
+import UserReports from "./Pages/UserReports";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -39,6 +40,7 @@ const router = createBrowserRouter(
         path="/player-details-report/:playerId/:transfermarktId"
         element={<PlayerDetailsReport />}
       />
+      <Route path="/reports" element={<UserReports />} />
     </Route>
   )
 );

@@ -1,7 +1,5 @@
-const { FriendDb } = require("../models");
-
 const { Op } = require("sequelize");
-const { UserDb } = require("../models");
+const { UserDb, FriendDb } = require("../models");
 
 const controller = {
   addFriend: async (req, res) => {
@@ -82,6 +80,23 @@ const controller = {
       }
     } catch (error) {
       return res.status(500).json({ error: "Server error!" });
+    }
+  },
+  getAllFriends: async (req, res) => {
+    const { userId } = req.params;
+
+    try {
+      const friends = await FriendDb.findAll({
+        where: {
+          userID: userId,
+        },
+      });
+      console.log(friends);
+
+      res.status(200).json(friends);
+    } catch (error) {
+      console.error("Error retrieving friends:", error);
+      res.status(500).json({ error: "Server error!" });
     }
   },
 };

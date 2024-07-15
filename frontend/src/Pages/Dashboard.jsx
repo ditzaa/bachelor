@@ -54,6 +54,9 @@ const Dashboard = () => {
                 Listă jucători favoriți
               </button>
             </Link>
+            <Link to={`/reports`}>
+              <button className="dashboard-button">Rapoarte</button>
+            </Link>
           </div>
         </div>
       </div>

@@ -1,11 +1,15 @@
 // File: SliderComponent.jsx
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactSlider from "react-slider";
 import "./SliderComponent.css";
 
 const SliderComponent = () => {
   const [value, setValue] = useState(5.0);
+
+  useEffect(() => {
+    localStorage.setItem("playerRating", value.toFixed(1));
+  }, [value]);
 
   return (
     <div className="slider-container">

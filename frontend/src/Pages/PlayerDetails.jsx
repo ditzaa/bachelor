@@ -261,12 +261,12 @@ const PlayerDetails = () => {
           )}
           <h2>Foste echipe</h2>
           <ul className="no-bullets">
-            {formerTeams.map((team) => (
-              <li key={team.idFormerTeam}>
+            {formerTeams.map((team, index) => (
+              <li key={`${team.idFormerTeam}-${index}`}>
                 <img
                   src={team.strBadge}
                   alt={team.strFormerTeam}
-                  className="team-badge"
+                  className="team-badge-report"
                 />
                 {team.strFormerTeam} ({team.strJoined} - {team.strDeparted})
               </li>

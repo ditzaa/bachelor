@@ -156,6 +156,25 @@ app.get("/api/search/player/:name", async (req, res) => {
   }
 });
 
+app.get("/api/search-transfermarkt/player/:name", async (req, res) => {
+  try {
+    const playerName = req.params.name;
+
+    const response = await axios.get(
+      `https://transfermarkt-api.fly.dev/players/search/${playerName}?page_number=1`
+    );
+
+    if (!response.data) {
+      return res.status(404).json({ error: "Jucătorul nu a fost găsit!" });
+    }
+
+    res.json(response.data.results);
+  } catch (error) {
+    console.error("Error searching player:", error);
+    res.status(500).json({ error: "Error fetching player stats" });
+  }
+});
+
 app.get("/api/player-details/:id", async (req, res) => {
   try {
     const playerId = req.params.id;
