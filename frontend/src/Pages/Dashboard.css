@@ -44,12 +44,12 @@
   font-size: 24px;
   color: #333;
   text-align: center;
-  margin-bottom: 80px; /* Aducerea cardului mai sus */
+  margin-bottom: 80px;
 }
 
 .dashboard-card {
   background-color: white;
-  padding: 60px; /* Mărirea padding-ului pentru a face cardul mai mare */
+  padding: 60px;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border: 2px solid black;
@@ -64,8 +64,8 @@
 }
 
 .dashboard-button {
-  width: 270px; /* Mărirea lățimii butoanelor */
-  height: 55px; /* Mărirea înălțimii butoanelor */
+  width: 270px;
+  height: 55px;
   font-size: 18px;
   color: #fff;
   background-color: var(--primary);
@@ -81,8 +81,8 @@
 
 @media (max-width: 768px) {
   .dashboard-button {
-    width: 220px; /* Ajustarea lățimii pentru ecrane mai mici */
-    height: 50px; /* Ajustarea înălțimii pentru ecrane mai mici */
+    width: 220px;
+    height: 50px;
     font-size: 16px;
   }
 
@@ -91,7 +91,7 @@
   }
 
   .dashboard-card {
-    padding: 50px; /* Ajustarea padding-ului pentru ecrane mai mici */
+    padding: 50px;
   }
 }
 
@@ -101,8 +101,8 @@
   }
 
   .dashboard-button {
-    width: 160px; /* Ajustarea lățimii pentru ecrane foarte mici */
-    height: 45px; /* Ajustarea înălțimii pentru ecrane foarte mici */
+    width: 160px;
+    height: 45px;
     font-size: 14px;
   }
 
@@ -111,6 +111,6 @@
   }
 
   .dashboard-card {
-    padding: 40px; /* Ajustarea padding-ului pentru ecrane foarte mici */
+    padding: 40px;
   }
 }

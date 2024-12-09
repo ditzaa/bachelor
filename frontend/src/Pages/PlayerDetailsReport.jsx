@@ -24,8 +24,6 @@ const PlayerDetailsReport = () => {
   const userId = localStorage.getItem("userID");
   const rating = localStorage.getItem("rating");
 
-  //const rating = 0;
-
   const navigate = useNavigate();
   const [isReportOpen, setIsReportOpen] = useState(false);
 
@@ -131,11 +129,10 @@ const PlayerDetailsReport = () => {
       injuriesText,
       rating: localStorage.getItem("playerRating"),
     };
-    console.log(data);
 
     try {
       await axios.post("http://localhost:1234/api/report/save-report", data);
-      console.log("Report saved successfully");
+      alert("Raport jucător salvat cu succes! ");
     } catch (error) {
       console.error("Error saving report:", error);
     }
@@ -143,16 +140,15 @@ const PlayerDetailsReport = () => {
 
   const handleSavePDF = async () => {
     try {
-      console.log("save pdf");
       const reportData = {
         name: player.strPlayer,
-        imageUrl: player.strCutout, // Adăugăm URL-ul imaginii
+        imageUrl: player.strCutout,
         textGeneral: generalText,
         textStatistici: statisticsText,
         textInjuries: injuriesText,
         rating: localStorage.getItem("playerRating"),
       };
-      console.log(reportData);
+
       const response = await axios.post(
         "http://localhost:1234/api/report/save-pdf",
         reportData,
@@ -375,13 +371,13 @@ const PlayerDetailsReport = () => {
                 className="save-report-button-report"
                 onClick={handleSaveReport}
               >
-                Salveaza Raportul
+                Salvează Raportul
               </button>
               <button
                 className="save-pdf-button-report"
                 onClick={handleSavePDF}
               >
-                Salveaza ca PDF
+                Salvează ca PDF
               </button>
             </div>
           </div>

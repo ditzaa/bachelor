@@ -17,7 +17,6 @@ const SearchPlayer = () => {
         `http://localhost:1234/api/search/player/${searchTerm}`
       );
       setPlayers(response.data.player);
-      console.log(players);
     } catch (error) {
       if (error.response && error.response.status === 404) {
         setError("Jucătorul nu a fost găsit!");

@@ -23,7 +23,7 @@ const controller = {
   removeFavoritePlayer: async (req, res) => {
     try {
       const { idTransfermarkt, id } = req.body;
-      console.log(id);
+
       const deletedPlayer = await PlayerDb.destroy({
         where: {
           idTransfermarkt,
@@ -88,7 +88,7 @@ const controller = {
               id: friend.friendID,
             },
           });
-          console.log(friendDetails.firstName);
+
           return favoritePlayers.map((player) => ({
             ...player.dataValues,
             friendName: `${friendDetails.firstName} ${friendDetails.lastName}`,
@@ -97,7 +97,7 @@ const controller = {
       );
 
       const flattenedFavorites = [].concat(...friendsFavoritePlayers);
-      //console.log(flattenedFavorites);
+
       res.status(200).json(flattenedFavorites);
     } catch (error) {
       console.error("Error fetching friends' favorite players:", error);

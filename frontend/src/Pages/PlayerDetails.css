@@ -3,9 +3,9 @@
   --background: #f8fafc;
   --primary: #4d76bc;
   --accent: #6d92d2;
-  --accent-hover: #5a7fbf; /* Accentuare la hover */
+  --accent-hover: #5a7fbf;
   --success: #28a745;
-  --text-hover: #333; /* Accentuare pentru butonul Înapoi */
+  --text-hover: #333;
 }
 
 .player-details-container {
@@ -36,9 +36,9 @@
 .player-image {
   width: 100%;
   height: auto;
-  max-width: 300px; /* Dimensiunea maximă dorită pentru imagine */
-  border-radius: 10px; /* Rotunjim colțurile imaginii */
-  object-fit: cover; /* Afișează imaginea completă, fără a fi tăiată */
+  max-width: 300px;
+  border-radius: 10px;
+  object-fit: cover;
 }
 
 .player-info {

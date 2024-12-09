@@ -28,18 +28,15 @@ const controller = {
         rating: rating,
       };
 
-      // Check if there's an existing record with the same userId and idTheSportsDB
       const existingReport = await ReportDb.findOne({
         where: { userId, idTheSportsDB },
       });
 
       let response;
       if (existingReport) {
-        // If record exists, update it
         response = await existingReport.update(payLoad);
         res.status(200).send(response);
       } else {
-        // If record does not exist, create a new one
         response = await ReportDb.create(payLoad);
         res.status(201).send(response);
       }
@@ -75,11 +72,9 @@ const controller = {
 
       doc.pipe(stream);
 
-      // Titlul raportului
       doc.fontSize(25).text(`Raport pentru ${name}`, { align: "center" });
       doc.moveDown();
 
-      // Adăugarea imaginii jucătorului
       if (imageUrl) {
         try {
           const response = await axios.get(imageUrl, {
@@ -87,23 +82,22 @@ const controller = {
           });
           const imgBuffer = Buffer.from(response.data, "base64");
 
-          // Centrăm imaginea
-          const imgWidth = 150; // Lățimea imaginii
-          const imgHeight = 150; // Înălțimea imaginii
+          const imgWidth = 150;
+          const imgHeight = 150;
           const pageWidth = doc.page.width;
-          const x = (pageWidth - imgWidth) / 2; // Calculăm poziția x pentru centrare
+          const x = (pageWidth - imgWidth) / 2;
 
           doc.image(imgBuffer, x, doc.y, {
             width: imgWidth,
             height: imgHeight,
           });
-          doc.moveDown(5); // Adăugăm spațiu după imagine
+          doc.moveDown(5);
         } catch (error) {
           console.error("Error loading image:", error);
         }
       }
       doc.moveDown();
-      // Restul textului din raport
+
       doc.fontSize(16).text("Observatii generale", { underline: true });
       doc.fontSize(12).text(textGeneral);
       doc.moveDown();

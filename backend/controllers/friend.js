@@ -91,7 +91,6 @@ const controller = {
           userID: userId,
         },
       });
-      console.log(friends);
 
       res.status(200).json(friends);
     } catch (error) {

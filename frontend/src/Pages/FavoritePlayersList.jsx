@@ -42,7 +42,7 @@ const FavoritePlayersList = () => {
             `http://localhost:1234/api/player-details-favorites/${player.idTheSportsDB}`
           );
           playerData.data.players[0].friendName = player.friendName;
-          console.log(playerData.data.players[0]);
+
           return playerData.data.players[0];
         })
       );
@@ -67,7 +67,6 @@ const FavoritePlayersList = () => {
         `http://localhost:1234/api/stats/${playerName}`
       );
       const transfermarktId = response.data.id;
-      //navigate(`/player-details/${playerId}/${transfermarktId}`);
       navigate(`/player-details-report/${playerId}/${transfermarktId}`);
     } catch (error) {
       console.error("Error fetching Transfermarkt ID:", error);

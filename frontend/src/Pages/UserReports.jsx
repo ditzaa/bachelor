@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import NavbarDash from "../Components/Dashboard/NavbarDash";
 import "./UserReports.css";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const UserReports = () => {
   const [reports, setReports] = useState([]);
   const [error, setError] = useState("");
   let userId = localStorage.getItem("userID");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchReports = async () => {
